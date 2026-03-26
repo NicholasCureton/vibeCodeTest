@@ -1,0 +1,16 @@
+{
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "min_p": 0.05,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0,
+    "repeat_penalty": 1.1,
+    "max_agent_iterations": 100,
+    "system_prompt_path": "prompts/system_prompt.md",
+    "server_url": "http://localhost:8080",
+    "model_name": "model.gguf",
+    "bash_timeout": 60.0,
+    "max_file_size": 10485760.0,
+    "stream_timeout": 120.0
+}
