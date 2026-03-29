@@ -463,69 +463,79 @@ def run_chat(
 
             # Execute each tool
             for tool_call in tool_calls:
-                tool_call_id = tool_call.get("id", "")
-                function = tool_call.get("function", {})
-                tool_name = function.get("name", "")
-                arguments_json = function.get("arguments", "{}")
-
-                import json
                 try:
-                    args = json.loads(arguments_json)
-                except json.JSONDecodeError:
-                    args = {}
+                    tool_call_id = tool_call.get("id", "")
+                    function = tool_call.get("function", {})
+                    tool_name = function.get("name", "")
+                    arguments_json = function.get("arguments", "{}")
 
-                # Confirmation (if not in agent mode)
-                if agent_mode == AgentMode.OFF:
-                    cmd = args.get("command", str(args)) if tool_name == "execute_bash" else str(args)
-                    confirm = ui.prompt_tool_confirmation(cmd)
-                    if confirm != "Y":
-                        ui.display_skipped()
-                        skip_msg = build_tool_result_message(
-                            tool_call_id=tool_call_id,
-                            result="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED."
-                        )
-                        chat_history.save(
-                            role="tool",
-                            content="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED.",
-                            tool_call_id=tool_call_id
-                        )
-                        history.append(skip_msg)
-                        continue
+                    import json
+                    try:
+                        args = json.loads(arguments_json)
+                    except json.JSONDecodeError:
+                        args = {}
 
-                # Execute tool
-                result = execute(
-                    tool_name,
-                    arguments_json,
-                    timeout=settings.get("bash_timeout", 60)
-                )
+                    # Confirmation (if not in agent mode)
+                    if agent_mode == AgentMode.OFF:
+                        cmd = args.get("command", str(args)) if tool_name == "execute_bash" else str(args)
+                        confirm = ui.prompt_tool_confirmation(cmd)
+                        if confirm != "Y":
+                            ui.display_skipped()
+                            skip_msg = build_tool_result_message(
+                                tool_call_id=tool_call_id,
+                                result="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED."
+                            )
+                            chat_history.save(
+                                role="tool",
+                                content="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED.",
+                                tool_call_id=tool_call_id
+                            )
+                            history.append(skip_msg)
+                            continue
 
-                print()
-                ui.display_tool_call(
-                    tool_name=tool_name,
-                    tool_args=args,
-                    output=result.output if result.output else result.error or "(no output)",
-                    success=result.success,
-                    exit_code=result.exit_code,
-                    debug=agent_debug
-                )
-                print()
+                    # Execute tool
+                    result = execute(
+                        tool_name,
+                        arguments_json,
+                        timeout=settings.get("bash_timeout", 60)
+                    )
 
-                # Build result message
-                tool_content = result.output
-                if not result.success and result.error:
-                    tool_content = f"ERROR: {result.error}\n\nOutput: {result.output}"
+                    print()
+                    ui.display_tool_call(
+                        tool_name=tool_name,
+                        tool_args=args,
+                        output=result.output if result.output else result.error or "(no output)",
+                        success=result.success,
+                        exit_code=result.exit_code,
+                        debug=agent_debug
+                    )
+                    print()
 
-                tool_result_msg = build_tool_result_message(
-                    tool_call_id=tool_call_id,
-                    result=tool_content
-                )
+                    # Build result message
+                    tool_content = result.output
+                    if not result.success and result.error:
+                        tool_content = f"ERROR: {result.error}\n\nOutput: {result.output}"
 
-                chat_history.save(
-                    role="tool",
-                    content=tool_content,
-                    tool_call_id=tool_call_id
-                )
-                history.append(tool_result_msg)
+                    tool_result_msg = build_tool_result_message(
+                        tool_call_id=tool_call_id,
+                        result=tool_content
+                    )
+
+                    chat_history.save(
+                        role="tool",
+                        content=tool_content,
+                        tool_call_id=tool_call_id
+                    )
+                    history.append(tool_result_msg)
+
+                except KeyboardInterrupt:
+                    # User interrupted during tool execution
+                    ui.display_interrupted()
+                    ui.reset_markdown_parser()
+                    # Save partial progress and return to continue conversation
+                    if full_content.strip() or (save_thinking and full_reasoning.strip()):
+                        chat_history.save("assistant", full_content, full_reasoning if save_thinking else None)
+                    return
 
             continue
 
