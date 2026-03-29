@@ -29,9 +29,58 @@ USAGE:
 from __future__ import annotations
 
 import json
+import signal
 from typing import Any, Callable, Dict, List, Optional, Union
 
 from core import ToolResult
+
+
+# =============================================================================
+# TIMEOUT HANDLING
+# =============================================================================
+
+class TimeoutError(Exception):
+    """Raised when a tool execution times out."""
+    pass
+
+
+def _timeout_handler(signum, frame):
+    """Signal handler for timeout."""
+    raise TimeoutError(f"Tool execution exceeded timeout")
+
+
+def execute_with_timeout(func: Callable, args: dict, timeout: int) -> ToolResult:
+    """
+    Execute a function with timeout, even if it doesn't accept timeout parameter.
+
+    Uses SIGALRM for timeout enforcement (Unix only).
+
+    Args:
+        func: Function to execute
+        args: Arguments to pass to function
+        timeout: Timeout in seconds
+
+    Returns:
+        ToolResult from function execution
+    """
+    # Set up signal handler
+    old_handler = signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(timeout)
+
+    try:
+        result = func(**args)
+        return result
+    except TimeoutError:
+        return ToolResult(
+            success=False,
+            output="",
+            error=f"Tool execution timed out after {timeout} seconds",
+            exit_code=-1
+        )
+    finally:
+        # Cancel alarm and restore old handler
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
 
 
 # =============================================================================
@@ -179,12 +228,13 @@ def execute(
     # Get timeout
     exec_timeout = timeout if timeout is not None else tool["timeout"]
 
-    # Execute
+    # Execute with timeout enforcement
     try:
+        # Try with timeout parameter first
         return tool["function"](**args, timeout=exec_timeout)
     except TypeError:
-        # Function doesn't accept timeout
-        return tool["function"](**args)
+        # Function doesn't accept timeout - use signal-based timeout
+        return execute_with_timeout(tool["function"], args, exec_timeout)
     except Exception as e:
         return ToolResult(
             success=False,

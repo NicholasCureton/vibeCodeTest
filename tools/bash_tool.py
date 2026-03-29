@@ -20,6 +20,41 @@ from tools.registry import register_tool
 
 
 # =============================================================================
+# SECURITY: DANGEROUS COMMAND PATTERNS
+# =============================================================================
+
+# Patterns that should be blocked or require extra confirmation
+DANGEROUS_PATTERNS = [
+    "rm -rf /",
+    "rm -rf /*",
+    "mkfs",
+    "dd if=/dev/zero",
+    ":(){:|:&};:",  # Fork bomb
+    "chmod -R 000 /",
+    "chown -R",
+]
+
+
+def is_command_safe(command: str) -> tuple[bool, str]:
+    """
+    Check if a command contains dangerous patterns.
+
+    Args:
+        command: The bash command to check
+
+    Returns:
+        Tuple of (is_safe, reason_if_unsafe)
+    """
+    command_lower = command.lower()
+
+    for pattern in DANGEROUS_PATTERNS:
+        if pattern in command_lower:
+            return False, f"Command contains dangerous pattern: {pattern}"
+
+    return True, ""
+
+
+# =============================================================================
 # TOOL SCHEMA (OpenAI format)
 # =============================================================================
 
@@ -66,6 +101,16 @@ def execute_bash(command: str, timeout: int = 60) -> ToolResult:
             success=False,
             output="",
             error="Empty command",
+            exit_code=-1
+        )
+
+    # Security check: block dangerous commands
+    is_safe, reason = is_command_safe(command)
+    if not is_safe:
+        return ToolResult(
+            success=False,
+            output="",
+            error=f"Command blocked for security: {reason}",
             exit_code=-1
         )
 

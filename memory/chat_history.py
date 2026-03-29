@@ -87,11 +87,14 @@ class ChatHistory:
                 try:
                     f.write(json.dumps(data) + "\n")
                     f.flush()
+                    os.fsync(f.fileno())  # Force write to disk before unlocking
                 finally:
                     fcntl.flock(f.fileno(), fcntl.LOCK_UN)
             return True
         except IOError as e:
             raise IOError(f"[chat_history] Could not write: {e}") from e
+        except Exception as e:
+            raise IOError(f"[chat_history] Unexpected error: {e}") from e
 
     def load(self) -> List[Message]:
         """

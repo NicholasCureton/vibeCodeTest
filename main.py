@@ -628,7 +628,6 @@ def main() -> None:
         chat_history = ChatHistory(filename=custom_history_path)
     else:
         chat_history = ChatHistory()
-    project_state = ProjectState()
 
     if not is_one_shot:
         ui.display_startup_banner(context_limit)
