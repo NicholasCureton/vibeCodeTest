@@ -271,12 +271,26 @@ def run_chat(
     server_think: bool,
     save_thinking: bool,
     context_limit: int,
-    chat_history: ChatHistory
+    chat_history: ChatHistory,
+    enable_markdown: bool = True,
 ) -> None:
     """
     Execute a chat turn.
 
     Handles the full loop: send to LLM, handle tool calls, return response.
+
+    Args:
+        user_input: User's message
+        history: Conversation history
+        system_prompt: System prompt text
+        llm_client: LLM client instance
+        agent_mode: Agent mode setting
+        agent_debug: Debug mode for tools
+        server_think: Enable server-side reasoning
+        save_thinking: Save reasoning to history
+        context_limit: Context window size
+        chat_history: Chat history handler
+        enable_markdown: Enable markdown rendering (interactive mode only)
     """
     max_iterations = settings.get("max_agent_iterations", 10)
     params = settings.get_params()
@@ -350,6 +364,7 @@ def run_chat(
                         if not currently_thinking:
                             currently_thinking = True
                             ui.display_thinking_separator()
+                        # Never render markdown in reasoning mode
                         ui.stream_chunk(text, is_reasoning=True)
 
                 # Handle main content
@@ -362,7 +377,13 @@ def run_chat(
                             currently_thinking = False
                         if first_content:
                             first_content = False
-                        ui.stream_chunk(text, is_reasoning=False, has_switched=switched)
+                        # Use markdown streaming for interactive mode
+                        ui.stream_markdown_chunk(
+                            text,
+                            is_reasoning=False,
+                            has_switched=switched,
+                            enable_markdown=enable_markdown
+                        )
 
                 # Handle tool calls
                 if "tool_calls" in delta:
@@ -389,6 +410,8 @@ def run_chat(
 
         except KeyboardInterrupt:
             ui.display_interrupted()
+            # Reset markdown parser to clear any buffers
+            ui.reset_markdown_parser()
             if full_content.strip() or (save_thinking and full_reasoning.strip()):
                 chat_history.save("assistant", full_content, full_reasoning if save_thinking else None)
                 history.append({
@@ -397,6 +420,13 @@ def run_chat(
                     "reasoning_content": full_reasoning
                 })
             return
+
+        # Finalize markdown streaming - flush any remaining buffers
+        if enable_markdown:
+            remaining = ui.finalize_markdown_stream()
+            if remaining:
+                # Should be empty, but print just in case
+                print(remaining, end="")
 
         print()
 
@@ -579,6 +609,7 @@ def main() -> None:
                 # Load previous history unless --no-history flag is set
                 if not args.no_history:
                     history = chat_history.load()
+                # One-shot mode: disable markdown rendering for raw output
                 run_chat(
                     user_input=args.message,
                     history=history,
@@ -589,7 +620,8 @@ def main() -> None:
                     server_think=server_think,
                     save_thinking=save_thinking,
                     context_limit=context_limit,
-                    chat_history=chat_history
+                    chat_history=chat_history,
+                    enable_markdown=False
                 )
             return
 
@@ -710,6 +742,7 @@ def main() -> None:
 
             # Run chat
             try:
+                # Interactive mode: enable markdown rendering for beautiful output
                 run_chat(
                     user_input=user_input,
                     history=history,
@@ -720,7 +753,8 @@ def main() -> None:
                     server_think=server_think,
                     save_thinking=save_thinking,
                     context_limit=context_limit,
-                    chat_history=chat_history
+                    chat_history=chat_history,
+                    enable_markdown=True
                 )
             except Exception as e:
                 ui.display_error(f"Chat session failed: {e}")

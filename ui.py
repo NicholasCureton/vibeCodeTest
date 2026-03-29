@@ -106,6 +106,100 @@ def stream_chunk(
     _stdout_buffer.flush()
 
 
+# =============================================================================
+# MARKDOWN STREAMING
+# =============================================================================
+
+# Lazy import to avoid circular dependency
+_markdown_parser = None
+
+
+def _get_markdown_parser():
+    """Lazy initialization of markdown parser."""
+    global _markdown_parser
+    if _markdown_parser is None:
+        from core.markdown_stream import create_parser
+        _markdown_parser = create_parser()
+    return _markdown_parser
+
+
+def stream_markdown_chunk(
+    text: str,
+    is_reasoning: bool = False,
+    has_switched: bool = False,
+    enable_markdown: bool = True
+) -> None:
+    """
+    Stream a chunk of text with optional markdown rendering.
+
+    When enable_markdown is True, parses markdown incrementally and
+    renders complete elements. Incomplete elements are buffered until
+    they can be properly formatted.
+
+    When enable_markdown is False, streams plain text (fallback mode).
+
+    Args:
+        text: Text chunk to display
+        is_reasoning: Whether this is reasoning content
+        has_switched: Whether we switched from reasoning to content
+        enable_markdown: Whether to apply markdown rendering
+    """
+    if has_switched:
+        _stdout_buffer.write(
+            f"\n\n{Colors.CYAN}{'=' * 20} ANSWER {'=' * 20}{Colors.RESET}\n"
+        )
+
+    if is_reasoning:
+        # Never render markdown in reasoning mode - keep it plain
+        _stdout_buffer.write(f"{Colors.GREY}{text}{Colors.RESET}")
+    elif enable_markdown:
+        # Parse and render markdown incrementally
+        parser = _get_markdown_parser()
+        rendered = parser.feed(text)
+        _stdout_buffer.write(rendered)
+    else:
+        # Plain text fallback
+        _stdout_buffer.write(f"{text}{Colors.RESET}")
+
+    _stdout_buffer.flush()
+
+
+def finalize_markdown_stream() -> str:
+    """
+    Finalize markdown streaming and flush buffers.
+
+    Call this after the LLM stream ends to render any remaining
+    buffered markdown content.
+
+    Returns:
+        Any remaining buffered content (should be empty if all rendered).
+    """
+    global _markdown_parser
+    if _markdown_parser is not None:
+        remaining = _markdown_parser.finalize()
+        _markdown_parser = None  # Reset for next conversation turn
+        return remaining
+    return ""
+
+
+def reset_markdown_parser() -> None:
+    """
+    Reset the markdown parser without finalizing.
+
+    Use this to abort markdown rendering mid-stream (e.g., user interrupt).
+    """
+    global _markdown_parser
+    if _markdown_parser is not None:
+        _markdown_parser.finalize()
+        _markdown_parser = None
+
+
+def display_assistant_label() -> None:
+    """Display assistant label for streaming."""
+    sys.stdout.write(f"{Colors.BOLD}Assistant:{Colors.RESET} ")
+    sys.stdout.flush()
+
+
 def display_tool_call(
     tool_name: str,
     tool_args: Dict[str, Any],
