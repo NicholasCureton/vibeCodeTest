@@ -155,8 +155,8 @@ def display_tool_call(
     else:
         # Truncate output for non-debug
         single_line = output.replace('\n', ' ').replace('\r', '')
-        if len(single_line) > 200:
-            truncated = single_line[:200] + "..."
+        if len(single_line) > 2000:
+            truncated = single_line[:2000] + "..."
         else:
             truncated = single_line
 

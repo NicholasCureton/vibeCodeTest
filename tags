@@ -1,0 +1,418 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/workspace/shared/cli_LLM_chat_inference_program/Cli_Chat_Inference_V5/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+"Can't connect to LLM server" → Check if llama.cpp is running with `netstat -tlnp | grep 8080`	documentation/BUGFIX_PLAYBOOK.md	/^### "Can't connect to LLM server" → Check if llama.cpp is running with `netstat -tlnp | grep 8/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"Chat history corrupted" → Delete or `/clear` in interactive mode	documentation/BUGFIX_PLAYBOOK.md	/^### "Chat history corrupted" → Delete or `\/clear` in interactive mode$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"File edit says no match found" → Read file first, copy exact whitespace (including [T:N] and [S:N])	documentation/BUGFIX_PLAYBOOK.md	/^### "File edit says no match found" → Read file first, copy exact whitespace (including [T:N] /;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"Need to add a new tool" → See: Tool Registration Issues (Step 3-5)	documentation/BUGFIX_PLAYBOOK.md	/^### "Need to add a new tool" → See: Tool Registration Issues (Step 3-5)$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"Parameter out of range error" → Check PARAM_RANGES dict in settings.py, stay within bounds	documentation/BUGFIX_PLAYBOOK.md	/^### "Parameter out of range error" → Check PARAM_RANGES dict in settings.py, stay within bound/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"Tool doesn't work after adding code" → Restart Python (tools register on import)	documentation/BUGFIX_PLAYBOOK.md	/^### "Tool doesn't work after adding code" → Restart Python (tools register on import)$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Quick Fixes for Common Scenarios
+"crwl not found" error	documentation/README.md	/^### "crwl not found" error$/;"	S	section:CLI LLM Chat Inference Program (V5)""Troubleshooting
+"duckduckgo-search not installed"	documentation/README.md	/^### "duckduckgo-search not installed"$/;"	S	section:CLI LLM Chat Inference Program (V5)""Troubleshooting
+1. `execute_bash` - Bash Command Execution	documentation/README.md	/^### 1. `execute_bash` - Bash Command Execution$/;"	S	section:CLI LLM Chat Inference Program (V5)""Available Tools
+2. `lft` - File Operations Tool	documentation/README.md	/^### 2. `lft` - File Operations Tool$/;"	S	section:CLI LLM Chat Inference Program (V5)""Available Tools
+3. `search_internet` - Web Search	documentation/README.md	/^### 3. `search_internet` - Web Search$/;"	S	section:CLI LLM Chat Inference Program (V5)""Available Tools
+4. `crawl_web` - Website Crawling	documentation/README.md	/^### 4. `crawl_web` - Website Crawling$/;"	S	section:CLI LLM Chat Inference Program (V5)""Available Tools
+AGENT MODE (Autonomous Execution)	prompts/system_prompt.md	/^# AGENT MODE (Autonomous Execution)$/;"	c
+Adding New Tools	documentation/DEVELOPER_GUIDE.md	/^## Adding New Tools$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Adding New Tools	documentation/README.md	/^## Adding New Tools$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Agent Mode (ON)	documentation/README.md	/^### Agent Mode (ON)$/;"	S	section:CLI LLM Chat Inference Program (V5)""Agent Mode vs Normal Mode
+Agent Mode vs Normal Mode	documentation/README.md	/^## Agent Mode vs Normal Mode$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+AgentConfig	agents/config.py	/^class AgentConfig:$/;"	c
+AgentManager	agents/manager.py	/^class AgentManager:$/;"	c
+AgentMode	main.py	/^class AgentMode:$/;"	c
+AmbiguousError	tools/lft.py	/^class AmbiguousError(LFTError):$/;"	c
+Architecture	documentation/README.md	/^## Architecture$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Available Tools	documentation/README.md	/^## Available Tools$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+BASH_TOOL_SCHEMA	tools/bash_tool.py	/^BASH_TOOL_SCHEMA = {$/;"	v
+BINARY_CHECK_BYTES	tools/lft.py	/^BINARY_CHECK_BYTES = 8192$/;"	v
+BLUE	ui.py	/^    BLUE: str = "\\033[94m"$/;"	v	class:Colors	typeref:typename:str
+BOLD	ui.py	/^    BOLD: str = "\\033[1m"$/;"	v	class:Colors	typeref:typename:str
+Bash Tool Not Working	documentation/BUGFIX_PLAYBOOK.md	/^## Bash Tool Not Working$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+BinaryFileError	tools/lft.py	/^class BinaryFileError(LFTError):$/;"	c
+Bug Fix Playbook - CLI LLM Chat Inference Program V5	documentation/BUGFIX_PLAYBOOK.md	/^# Bug Fix Playbook - CLI LLM Chat Inference Program V5$/;"	c
+CLI LLM Chat Inference Program (V5)	documentation/README.md	/^# CLI LLM Chat Inference Program (V5)$/;"	c
+CODING STANDARDS & QUALITY GATES	prompts/system_prompt.md	/^# CODING STANDARDS & QUALITY GATES$/;"	c
+COMMUNICATION STYLE	prompts/system_prompt.md	/^# COMMUNICATION STYLE$/;"	c
+CONFIG_FILE	settings.py	/^CONFIG_FILE = "settings.json"$/;"	v
+CRAWL_TOOL_SCHEMA	tools/web_tool.py	/^CRAWL_TOOL_SCHEMA = {$/;"	v
+CYAN	ui.py	/^    CYAN: str = "\\033[96m"$/;"	v	class:Colors	typeref:typename:str
+Chat History Corruption	documentation/BUGFIX_PLAYBOOK.md	/^## Chat History Corruption$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Chat Loop Flow (`main.py` lines 264-506)	documentation/DEVELOPER_GUIDE.md	/^### Chat Loop Flow (`main.py` lines 264-506)$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Code Flow Diagrams
+ChatChoice	llm/types.py	/^class ChatChoice(TypedDict, total=False):$/;"	c
+ChatHistory	memory/chat_history.py	/^class ChatHistory:$/;"	c
+Code Flow Diagrams	documentation/DEVELOPER_GUIDE.md	/^## Code Flow Diagrams$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Colors	ui.py	/^class Colors:$/;"	c
+Common Issues & Solutions	documentation/DEVELOPER_GUIDE.md	/^## Common Issues & Solutions$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Connection refused to LLM server	documentation/README.md	/^### Connection refused to LLM server$/;"	S	section:CLI LLM Chat Inference Program (V5)""Troubleshooting
+Core Design Pattern: Tool Registry	documentation/README.md	/^### Core Design Pattern: Tool Registry$/;"	S	section:CLI LLM Chat Inference Program (V5)""Architecture
+DEFAULT_CONFIGS	agents/config.py	/^DEFAULT_CONFIGS: Dict[str, Dict[str, Any]] = {$/;"	v	typeref:typename:Dict[str, Dict[str, Any]]
+DEFAULT_CONTEXT_LIMIT	core/__init__.py	/^DEFAULT_CONTEXT_LIMIT: int = 8192$/;"	v	typeref:typename:int
+DEFAULT_SETTINGS	settings.py	/^DEFAULT_SETTINGS: Dict[str, Any] = {$/;"	v	typeref:typename:Dict[str, Any]
+DEFAULT_SYSTEM_PROMPT	core/__init__.py	/^DEFAULT_SYSTEM_PROMPT: str = """You are a helpful AI assistant with access to a Linux terminal.$/;"	v	typeref:typename:str
+DIM	ui.py	/^    DIM: str = "\\033[2m"$/;"	v	class:Colors	typeref:typename:str
+Debugging Guide	documentation/DEVELOPER_GUIDE.md	/^## Debugging Guide$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Dependencies	documentation/README.md	/^## Dependencies$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Developer Guide - CLI LLM Chat Inference Program V5	documentation/DEVELOPER_GUIDE.md	/^# Developer Guide - CLI LLM Chat Inference Program V5$/;"	c
+Directory Structure	documentation/README.md	/^## Directory Structure$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Display/Formatting Issues	documentation/BUGFIX_PLAYBOOK.md	/^## Display\/Formatting Issues$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+EFFICIENCY RULES	prompts/system_prompt.md	/^# EFFICIENCY RULES$/;"	c
+ENCODING_FALLBACKS	tools/lft.py	/^ENCODING_FALLBACKS = ["utf-8", "utf-8-sig", "utf-16", "latin-1", "cp1252"]$/;"	v
+ENVIRONMENT CONTEXT	prompts/system_prompt.md	/^# ENVIRONMENT CONTEXT$/;"	c
+FLOAT_PARAMS	settings.py	/^FLOAT_PARAMS: frozenset = frozenset({$/;"	v	typeref:typename:frozenset
+File Operation Issues	documentation/BUGFIX_PLAYBOOK.md	/^## File Operation Issues$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+FileNotFoundError_	tools/lft.py	/^class FileNotFoundError_(LFTError):$/;"	c
+FileTooLargeError	tools/lft.py	/^class FileTooLargeError(LFTError):$/;"	c
+Final Checklist Before Adding Features	documentation/DEVELOPER_GUIDE.md	/^## Final Checklist Before Adding Features$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+For crawl_web tool:	documentation/BUGFIX_PLAYBOOK.md	/^#### For crawl_web tool:$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Web Tools Failing""Step-by-Step Fix:
+For search_internet tool:	documentation/BUGFIX_PLAYBOOK.md	/^#### For search_internet tool:$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Web Tools Failing""Step-by-Step Fix:
+GREEN	ui.py	/^    GREEN: str = "\\033[92m"$/;"	v	class:Colors	typeref:typename:str
+GREY	ui.py	/^    GREY: str = "\\033[90m"$/;"	v	class:Colors	typeref:typename:str
+General Debugging Checklist	documentation/BUGFIX_PLAYBOOK.md	/^## General Debugging Checklist$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Getting Help When Stuck	documentation/DEVELOPER_GUIDE.md	/^## Getting Help When Stuck$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+How Tools Get Called	documentation/DEVELOPER_GUIDE.md	/^### How Tools Get Called$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Tool System Deep Dive
+How Tools Work (Step-by-Step)	documentation/DEVELOPER_GUIDE.md	/^### How Tools Work (Step-by-Step)$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Tool System Deep Dive
+INTEGER_PARAMS	settings.py	/^INTEGER_PARAMS: frozenset = frozenset({"top_k", "max_agent_iterations"})$/;"	v	typeref:typename:frozenset
+Interactive Commands	documentation/README.md	/^## Interactive Commands$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Issue 1: Tool executes but LLM doesn't see the result	documentation/DEVELOPER_GUIDE.md	/^### Issue 1: Tool executes but LLM doesn't see the result$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Common Issues & Solutions
+Issue 2: LLM keeps asking to use a tool in loop	documentation/DEVELOPER_GUIDE.md	/^### Issue 2: LLM keeps asking to use a tool in loop$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Common Issues & Solutions
+Issue 3: "Unknown tool" error at runtime	documentation/DEVELOPER_GUIDE.md	/^### Issue 3: "Unknown tool" error at runtime$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Common Issues & Solutions
+Issue 4: File operations show wrong line numbers in lft output	documentation/DEVELOPER_GUIDE.md	/^### Issue 4: File operations show wrong line numbers in lft output$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Common Issues & Solutions
+Issue 5: Bash commands don't execute	documentation/DEVELOPER_GUIDE.md	/^### Issue 5: Bash commands don't execute$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Common Issues & Solutions
+Key Files and Their Responsibilities	documentation/DEVELOPER_GUIDE.md	/^### Key Files and Their Responsibilities$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Start: Understanding How Code Flows
+Key Modules Explained	documentation/README.md	/^## Key Modules Explained$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+LFTError	tools/lft.py	/^class LFTError(Exception):$/;"	c
+LFT_TOOL_SCHEMA	tools/lft_tool.py	/^LFT_TOOL_SCHEMA = {$/;"	v
+LLM Connection Problems	documentation/BUGFIX_PLAYBOOK.md	/^## LLM Connection Problems$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+LLMClient	llm/client.py	/^class LLMClient:$/;"	c
+LLMClientProtocol	core/__init__.py	/^class LLMClientProtocol(Protocol):$/;"	c
+LLMResponse	core/__init__.py	/^class LLMResponse:$/;"	c
+License	documentation/README.md	/^## License$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+MAGENTA	ui.py	/^    MAGENTA: str = "\\033[95m"$/;"	v	class:Colors	typeref:typename:str
+MAX_FILE_SIZE_MB	tools/lft.py	/^MAX_FILE_SIZE_MB = 100$/;"	v
+Message	core/__init__.py	/^class Message(TypedDict, total=False):$/;"	c
+MockLLMClient	llm/mock_client.py	/^class MockLLMClient:$/;"	c
+Normal Mode (Agent OFF)	documentation/README.md	/^### Normal Mode (Agent OFF)$/;"	S	section:CLI LLM Chat Inference Program (V5)""Agent Mode vs Normal Mode
+NotFoundError	tools/lft.py	/^class NotFoundError(LFTError):$/;"	c
+OFF	main.py	/^    OFF: str = "off"$/;"	v	class:AgentMode	typeref:typename:str
+ON	main.py	/^    ON: str = "on"$/;"	v	class:AgentMode	typeref:typename:str
+OpenAIResponse	llm/types.py	/^class OpenAIResponse(TypedDict, total=False):$/;"	c
+Overview	documentation/README.md	/^## Overview$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+PARAM_RANGES	settings.py	/^PARAM_RANGES: Dict[str, Tuple[float, float]] = {$/;"	v	typeref:typename:Dict[str, Tuple[float, float]]
+Parameter Validation Issues	documentation/BUGFIX_PLAYBOOK.md	/^## Parameter Validation Issues$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Problem: Chat history gets corrupted	documentation/DEVELOPER_GUIDE.md	/^### Problem: Chat history gets corrupted$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Debugging Guide
+Problem: File operations don't work (lft tool)	documentation/DEVELOPER_GUIDE.md	/^### Problem: File operations don't work (lft tool)$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Debugging Guide
+Problem: LLM can't see files after /read	documentation/DEVELOPER_GUIDE.md	/^### Problem: LLM can't see files after \/read$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Debugging Guide
+Problem: Tool doesn't work / LLM says "tool not found"	documentation/DEVELOPER_GUIDE.md	/^### Problem: Tool doesn't work \/ LLM says "tool not found"$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Debugging Guide
+Problem: Tool execution fails silently	documentation/DEVELOPER_GUIDE.md	/^### Problem: Tool execution fails silently$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Debugging Guide
+ProjectState	memory/project_state.py	/^class ProjectState:$/;"	c
+Quick Fixes for Common Scenarios	documentation/BUGFIX_PLAYBOOK.md	/^## Quick Fixes for Common Scenarios$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Quick Reference: What Problem → Where to Look	documentation/BUGFIX_PLAYBOOK.md	/^## Quick Reference: What Problem → Where to Look$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Quick Reference: Where Things Happen	documentation/DEVELOPER_GUIDE.md	/^## Quick Reference: Where Things Happen$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Quick Start: Understanding How Code Flows	documentation/DEVELOPER_GUIDE.md	/^## Quick Start: Understanding How Code Flows$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+READLINE_AVAILABLE	main.py	/^    READLINE_AVAILABLE = False$/;"	v
+READLINE_AVAILABLE	main.py	/^    READLINE_AVAILABLE = True$/;"	v
+REASONING PROTOCOL (Apply to ALL Problem-Solving Tasks)	prompts/system_prompt.md	/^# REASONING PROTOCOL (Apply to ALL Problem-Solving Tasks)$/;"	c
+RED	ui.py	/^    RED: str = "\\033[91m"$/;"	v	class:Colors	typeref:typename:str
+RESET	ui.py	/^    RESET: str = "\\033[0m"$/;"	v	class:Colors	typeref:typename:str
+ROLE & IDENTITY: OSCAR	prompts/system_prompt.md	/^# ROLE & IDENTITY: OSCAR$/;"	c
+SEARCH_TOOL_SCHEMA	tools/web_tool.py	/^SEARCH_TOOL_SCHEMA = {$/;"	v
+STRING_PARAMS	settings.py	/^STRING_PARAMS: frozenset = frozenset({$/;"	v	typeref:typename:frozenset
+Step 1: Add debug prints to see what's happening	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Add debug prints to see what's happening$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior""Step-by-Step Fix:
+Step 1: Always read first, then copy EXACT text	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Always read first, then copy EXACT text$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues""Step-by-Step Fix:
+Step 1: Check if llama.cpp server is running	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Check if llama.cpp server is running$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems""Step-by-Step Fix:
+Step 1: Check if your terminal supports colors	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Check if your terminal supports colors$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues""Step-by-Step Fix:
+Step 1: Check the actual command being executed	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Check the actual command being executed$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working""Step-by-Step Fix:
+Step 1: Check the history file format	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Check the history file format$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption""Step-by-Step Fix:
+Step 1: Check valid ranges in settings.py	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Check valid ranges in settings.py$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues""Step-by-Step Fix:
+Step 1: Verify the tool file exists and has correct structure	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 1: Verify the tool file exists and has correct structure$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues""Step-by-Step Fix:
+Step 2: Check all four ToolResult fields are correct	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Check all four ToolResult fields are correct$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior""Step-by-Step Fix:
+Step 2: Check parameter type requirements	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Check parameter type requirements$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues""Step-by-Step Fix:
+Step 2: Check that the tool imports registry correctly	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Check that the tool imports registry correctly$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues""Step-by-Step Fix:
+Step 2: Check ui.py color definitions	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Check ui.py color definitions$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues""Step-by-Step Fix:
+Step 2: Copy the EXACT whitespace from read output	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Copy the EXACT whitespace from read output$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues""Step-by-Step Fix:
+Step 2: Test the command directly in terminal	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Test the command directly in terminal$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working""Step-by-Step Fix:
+Step 2: Validate each line is proper JSON	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Validate each line is proper JSON$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption""Step-by-Step Fix:
+Step 2: Verify server_url in settings.py	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 2: Verify server_url in settings.py$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems""Step-by-Step Fix:
+Step 3: Check for permission issues	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Check for permission issues$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working""Step-by-Step Fix:
+Step 3: Check that `register_tool()` is called at module level (bottom of file)	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Check that `register_tool()` is called at module level (bottom of file)$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues""Step-by-Step Fix:
+Step 3: Check that model.gguf file exists	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Check that model.gguf file exists$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems""Step-by-Step Fix:
+Step 3: Clear screen issues	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Clear screen issues$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues""Step-by-Step Fix:
+Step 3: Fix the file manually	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Fix the file manually$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption""Step-by-Step Fix:
+Step 3: Use correct update syntax in interactive mode	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Use correct update syntax in interactive mode$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues""Step-by-Step Fix:
+Step 3: Verify old_string matches exactly before editing	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Verify old_string matches exactly before editing$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues""Step-by-Step Fix:
+Step 3: Verify the tool is being called with correct arguments	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 3: Verify the tool is being called with correct arguments$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior""Step-by-Step Fix:
+Step 4: Check for type mismatches	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Check for type mismatches$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior""Step-by-Step Fix:
+Step 4: Check settings.json for saved values	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Check settings.json for saved values$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues""Step-by-Step Fix:
+Step 4: Clear history and start fresh (easiest fix)	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Clear history and start fresh (easiest fix)$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption""Step-by-Step Fix:
+Step 4: For edits that span multiple lines, use multiedit	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: For edits that span multiple lines, use multiedit$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues""Step-by-Step Fix:
+Step 4: Streaming output issues	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Streaming output issues$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues""Step-by-Step Fix:
+Step 4: Test connection manually from Python	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Test connection manually from Python$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems""Step-by-Step Fix:
+Step 4: Verify timeout isn't cutting off long commands	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Verify timeout isn't cutting off long commands$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working""Step-by-Step Fix:
+Step 4: Verify tools/__init__.py imports all tool files	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 4: Verify tools\/__init__.py imports all tool files$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues""Step-by-Step Fix:
+Step 5: After editing, verify the change	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: After editing, verify the change$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues""Step-by-Step Fix:
+Step 5: Check firewall/network settings	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: Check firewall\/network settings$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems""Step-by-Step Fix:
+Step 5: Check if shell=True is causing issues	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: Check if shell=True is causing issues$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working""Step-by-Step Fix:
+Step 5: Reset to defaults if needed	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: Reset to defaults if needed$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues""Step-by-Step Fix:
+Step 5: Restart Python	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: Restart Python$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues""Step-by-Step Fix:
+Step 5: Test tool in isolation (bypassing LLM)	documentation/BUGFIX_PLAYBOOK.md	/^#### Step 5: Test tool in isolation (bypassing LLM)$/;"	t	subsection:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior""Step-by-Step Fix:
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Web Tools Failing
+Step-by-Step Fix:	documentation/BUGFIX_PLAYBOOK.md	/^### Step-by-Step Fix:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior
+Step-by-Step Guide	documentation/DEVELOPER_GUIDE.md	/^### Step-by-Step Guide$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Adding New Tools
+StreamGenerator	llm/types.py	/^StreamGenerator = Generator[Dict[str, Any], None, None]$/;"	v
+StreamingTimeoutError	llm/types.py	/^class StreamingTimeoutError(Exception):$/;"	c
+Symptom: "Connection refused", "Request timed out", or similar errors	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: "Connection refused", "Request timed out", or similar errors$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems
+Symptom: "Could not read chat history", corrupted file, or messages missing	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: "Could not read chat history", corrupted file, or messages missing$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption
+Symptom: "Parameter out of range", "Invalid value for <param>", etc.	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: "Parameter out of range", "Invalid value for <param>", etc.$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues
+Symptom: LFT tool says "No match found", wrong line numbers, or edit fails	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: LFT tool says "No match found", wrong line numbers, or edit fails$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues
+Symptom: LLM says "tool not found" or "Unknown tool: <name>"	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: LLM says "tool not found" or "Unknown tool: <name>"$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues
+Symptom: Terminal output looks wrong, colors missing, or text cut off	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: Terminal output looks wrong, colors missing, or text cut off$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues
+Symptom: Tool executes but returns incorrect/wrong result	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: Tool executes but returns incorrect\/wrong result$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior
+Symptom: execute_bash tool called but no output or command fails silently	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: execute_bash tool called but no output or command fails silently$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working
+Symptom: search_internet or crawl_web returns error about missing packages	documentation/BUGFIX_PLAYBOOK.md	/^### Symptom: search_internet or crawl_web returns error about missing packages$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Web Tools Failing
+Table of Contents	documentation/DEVELOPER_GUIDE.md	/^## Table of Contents$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Test a tool in isolation (without running main.py):	documentation/DEVELOPER_GUIDE.md	/^### Test a tool in isolation (without running main.py):$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Testing Tips
+Test with mock LLM (no real server needed):	documentation/DEVELOPER_GUIDE.md	/^### Test with mock LLM (no real server needed):$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Testing Tips
+Testing Tips	documentation/DEVELOPER_GUIDE.md	/^## Testing Tips$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+The Big Picture	documentation/DEVELOPER_GUIDE.md	/^### The Big Picture$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Start: Understanding How Code Flows
+The Tool Result Format	documentation/DEVELOPER_GUIDE.md	/^### The Tool Result Format$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Tool System Deep Dive
+To add new LLM parameters:	documentation/DEVELOPER_GUIDE.md	/^### To add new LLM parameters:$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Reference: Where Things Happen
+To add new memory features:	documentation/DEVELOPER_GUIDE.md	/^### To add new memory features:$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Reference: Where Things Happen
+To change system prompt location:	documentation/DEVELOPER_GUIDE.md	/^### To change system prompt location:$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Reference: Where Things Happen
+To change what commands users can type:	documentation/DEVELOPER_GUIDE.md	/^### To change what commands users can type:$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Reference: Where Things Happen
+To modify how tools are displayed:	documentation/DEVELOPER_GUIDE.md	/^### To modify how tools are displayed:$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Quick Reference: Where Things Happen
+Tool Execution Flow	documentation/README.md	/^## Tool Execution Flow$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Tool Execution Flow (`main.py` lines 465-498)	documentation/DEVELOPER_GUIDE.md	/^### Tool Execution Flow (`main.py` lines 465-498)$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Code Flow Diagrams
+Tool Registration Flow (`tools/registry.py`)	documentation/DEVELOPER_GUIDE.md	/^### Tool Registration Flow (`tools\/registry.py`)$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Code Flow Diagrams
+Tool Registration Issues	documentation/BUGFIX_PLAYBOOK.md	/^## Tool Registration Issues$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+Tool System Deep Dive	documentation/DEVELOPER_GUIDE.md	/^## Tool System Deep Dive$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+ToolCall	core/__init__.py	/^class ToolCall(TypedDict):$/;"	c
+ToolCallFunction	core/__init__.py	/^class ToolCallFunction(TypedDict):$/;"	c
+ToolExecutorProtocol	core/__init__.py	/^class ToolExecutorProtocol(Protocol):$/;"	c
+ToolRegistry	tools/registry.py	/^class ToolRegistry:$/;"	c
+ToolResult	core/__init__.py	/^class ToolResult:$/;"	c
+Troubleshooting	documentation/README.md	/^## Troubleshooting$/;"	s	chapter:CLI LLM Chat Inference Program (V5)
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Bash Tool Not Working
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Chat History Corruption
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Display/Formatting Issues
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""File Operation Issues
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""LLM Connection Problems
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Parameter Validation Issues
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Tool Registration Issues
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Web Tools Failing
+Verification:	documentation/BUGFIX_PLAYBOOK.md	/^### Verification:$/;"	S	section:Bug Fix Playbook - CLI LLM Chat Inference Program V5""Wrong Tool Behavior
+VerifyError	tools/lft.py	/^class VerifyError(LFTError):$/;"	c
+WHITE	ui.py	/^    WHITE: str = "\\033[97m"$/;"	v	class:Colors	typeref:typename:str
+Web Tools Failing	documentation/BUGFIX_PLAYBOOK.md	/^## Web Tools Failing$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+When All Else Fails	documentation/BUGFIX_PLAYBOOK.md	/^## When All Else Fails$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+When to Look at Each File	documentation/DEVELOPER_GUIDE.md	/^## When to Look at Each File$/;"	s	chapter:Developer Guide - CLI LLM Chat Inference Program V5
+Where Tools Register Themselves	documentation/DEVELOPER_GUIDE.md	/^### Where Tools Register Themselves$/;"	S	section:Developer Guide - CLI LLM Chat Inference Program V5""Tool System Deep Dive
+Wrong Tool Behavior	documentation/BUGFIX_PLAYBOOK.md	/^## Wrong Tool Behavior$/;"	s	chapter:Bug Fix Playbook - CLI LLM Chat Inference Program V5
+YELLOW	ui.py	/^    YELLOW: str = "\\033[93m"$/;"	v	class:Colors	typeref:typename:str
+__all__	agents/__init__.py	/^__all__ = ["AgentConfig", "AgentManager", "load_agent_configs"]$/;"	v
+__all__	llm/__init__.py	/^__all__ = [$/;"	v
+__all__	memory/__init__.py	/^__all__ = ["ProjectState", "ChatHistory"]$/;"	v
+__all__	tools/__init__.py	/^__all__ = [$/;"	v
+__init__	agents/manager.py	/^    def __init__($/;"	m	class:AgentManager
+__init__	llm/client.py	/^    def __init__($/;"	m	class:LLMClient
+__init__	llm/mock_client.py	/^    def __init__($/;"	m	class:MockLLMClient
+__init__	memory/chat_history.py	/^    def __init__(self, filename: str = "chat_history.jsonl"):$/;"	m	class:ChatHistory
+__init__	memory/project_state.py	/^    def __init__(self, filename: str = "state\/PROJECT.md"):$/;"	m	class:ProjectState
+__init__	tools/lft.py	/^    def __init__(self, code: str, message: str, hint: str = ""):$/;"	m	class:LFTError
+__init__	tools/lft.py	/^    def __init__(self, count: int, locations: List[int]):$/;"	m	class:AmbiguousError
+__init__	tools/lft.py	/^    def __init__(self, expected: str, actual: str):$/;"	m	class:VerifyError
+__init__	tools/lft.py	/^    def __init__(self, old_string: str, context: str = ""):$/;"	m	class:NotFoundError
+__init__	tools/lft.py	/^    def __init__(self, path: Path):$/;"	m	class:BinaryFileError
+__init__	tools/lft.py	/^    def __init__(self, path: Path):$/;"	m	class:FileNotFoundError_
+__init__	tools/lft.py	/^    def __init__(self, size: int, limit: int):$/;"	m	class:FileTooLargeError
+__post_init__	core/__init__.py	/^    def __post_init__(self):$/;"	m	class:LLMResponse
+_ensure_loaded	settings.py	/^def _ensure_loaded() -> None:$/;"	f	typeref:typename:None
+_generate_markdown	memory/project_state.py	/^    def _generate_markdown(self) -> str:$/;"	m	class:ProjectState	typeref:typename:str
+_generate_non_streaming_response	llm/mock_client.py	/^    def _generate_non_streaming_response($/;"	m	class:MockLLMClient	typeref:typename:OpenAIResponse
+_generate_streaming_response	llm/mock_client.py	/^    def _generate_streaming_response($/;"	m	class:MockLLMClient	typeref:typename:StreamGenerator
+_generate_text_response	llm/mock_client.py	/^    def _generate_text_response(self, user_message: str) -> str:$/;"	m	class:MockLLMClient	typeref:typename:str
+_generate_tool_args	llm/mock_client.py	/^    def _generate_tool_args(self, tool_name: str, message: str) -> Dict[str, Any]:$/;"	m	class:MockLLMClient	typeref:typename:Dict[str,Any]
+_get_default_configs	agents/config.py	/^def _get_default_configs() -> Dict[str, AgentConfig]:$/;"	f	typeref:typename:Dict[str,AgentConfig]
+_load_context_file	agents/manager.py	/^    def _load_context_file(self, path: str) -> Optional[str]:$/;"	m	class:AgentManager	typeref:typename:Optional[str]
+_load_prompt	agents/manager.py	/^    def _load_prompt(self, path: str) -> str:$/;"	m	class:AgentManager	typeref:typename:str
+_loaded	settings.py	/^_loaded: bool = False$/;"	v	typeref:typename:bool
+_map_section	memory/project_state.py	/^    def _map_section(self, header: str) -> Optional[str]:$/;"	m	class:ProjectState	typeref:typename:Optional[str]
+_parse_markdown	memory/project_state.py	/^    def _parse_markdown(self, content: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+_pick_tool	llm/mock_client.py	/^    def _pick_tool(self, message: str) -> str:$/;"	m	class:MockLLMClient	typeref:typename:str
+_save	settings.py	/^def _save() -> None:$/;"	f	typeref:typename:None
+_settings	settings.py	/^_settings: Dict[str, Any] = DEFAULT_SETTINGS.copy()$/;"	v	typeref:typename:Dict[str, Any]
+_should_trigger_tool	llm/mock_client.py	/^    def _should_trigger_tool(self, message: str) -> bool:$/;"	m	class:MockLLMClient	typeref:typename:bool
+_stdout_buffer	ui.py	/^_stdout_buffer = io.TextIOWrapper($/;"	v
+_stream_content	llm/mock_client.py	/^    def _stream_content(self, response_id: str, user_message: str) -> Generator:$/;"	m	class:MockLLMClient	typeref:typename:Generator
+_stream_reasoning	llm/mock_client.py	/^    def _stream_reasoning(self, response_id: str) -> Generator:$/;"	m	class:MockLLMClient	typeref:typename:Generator
+_stream_tool_call	llm/mock_client.py	/^    def _stream_tool_call(self, response_id: str, user_message: str) -> Generator:$/;"	m	class:MockLLMClient	typeref:typename:Generator
+_tools	tools/registry.py	/^    _tools: Dict[str, Dict[str, Any]] = {}$/;"	v	class:ToolRegistry	typeref:typename:Dict[str, Dict[str, Any]]
+`main.py` - Entry Point	documentation/README.md	/^### `main.py` - Entry Point$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+`memory/chat_history.py` - Conversation Persistence	documentation/README.md	/^### `memory\/chat_history.py` - Conversation Persistence$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+`memory/project_state.py` - Cross-Session State	documentation/README.md	/^### `memory\/project_state.py` - Cross-Session State$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+`settings.py` - Parameter Management	documentation/README.md	/^### `settings.py` - Parameter Management$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+`tools/registry.py` - The Tool Registry	documentation/README.md	/^### `tools\/registry.py` - The Tool Registry$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+`ui.py` - Terminal Display	documentation/README.md	/^### `ui.py` - Terminal Display$/;"	S	section:CLI LLM Chat Inference Program (V5)""Key Modules Explained
+add_avoid	memory/project_state.py	/^    def add_avoid(self, item: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_decision	memory/project_state.py	/^    def add_decision(self, decision: str, choice: str, reason: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_done	memory/project_state.py	/^    def add_done(self, item: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_file_changed	memory/project_state.py	/^    def add_file_changed(self, file: str, description: str = "") -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_in_progress	memory/project_state.py	/^    def add_in_progress(self, item: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_issue	memory/project_state.py	/^    def add_issue(self, issue: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+add_next	memory/project_state.py	/^    def add_next(self, item: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+bash_timeout	settings.json	/^    "bash_timeout": 60.0,$/;"	n
+build_assistant_tool_message	tools/registry.py	/^def build_assistant_tool_message($/;"	f	typeref:typename:Dict[str,Any]
+build_tool_result_message	tools/registry.py	/^def build_tool_result_message($/;"	f	typeref:typename:Dict[str,Any]
+call	core/__init__.py	/^    def call($/;"	m	class:LLMClientProtocol	typeref:typename:Union[LLMResponse,Any]
+call	llm/client.py	/^    def call($/;"	m	class:LLMClient	typeref:typename:Union[Optional[OpenAIResponse],StreamGenerator,None]
+call	llm/mock_client.py	/^    def call($/;"	m	class:MockLLMClient	typeref:typename:Union[Optional[OpenAIResponse],StreamGenerator,None]
+clear	memory/chat_history.py	/^    def clear(self) -> bool:$/;"	m	class:ChatHistory	typeref:typename:bool
+clear_files_changed	memory/project_state.py	/^    def clear_files_changed(self) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+clear_screen	ui.py	/^def clear_screen() -> None:$/;"	f	typeref:typename:None
+cmd_edit	tools/lft.py	/^def cmd_edit($/;"	f	typeref:typename:int
+cmd_find	tools/lft.py	/^def cmd_find($/;"	f	typeref:typename:int
+cmd_info	tools/lft.py	/^def cmd_info(path: Path) -> int:$/;"	f	typeref:typename:int
+cmd_multiedit	tools/lft.py	/^def cmd_multiedit($/;"	f	typeref:typename:int
+cmd_read	tools/lft.py	/^def cmd_read(path: Path, start: int = 1, end: int = -1) -> int:$/;"	f	typeref:typename:int
+cmd_write	tools/lft.py	/^def cmd_write($/;"	f	typeref:typename:int
+completion_tokens	core/__init__.py	/^    completion_tokens: int = 0$/;"	v	class:LLMResponse	typeref:typename:int
+context_files	agents/config.py	/^    context_files: List[str] = field(default_factory=list)$/;"	v	class:AgentConfig	typeref:typename:List[str]
+crawl_web	tools/web_tool.py	/^def crawl_web($/;"	f	typeref:typename:ToolResult
+create_agent	agents/manager.py	/^    def create_agent($/;"	m	class:AgentManager	typeref:typename:Optional[Dict[str,Any]]
+create_parser	tools/lft.py	/^def create_parser() -> "argparse.ArgumentParser":$/;"	f	typeref:typename:"argparse.ArgumentParser"
+derive_chat_history_path	main.py	/^def derive_chat_history_path(prompt_path: str) -> str:$/;"	f	typeref:typename:str
+detect_encoding	tools/lft.py	/^def detect_encoding(path: Path) -> str:$/;"	f	typeref:typename:str
+display_agent_status	ui.py	/^def display_agent_status(mode: str, debug: bool, max_iterations: int) -> None:$/;"	f	typeref:typename:None
+display_assistant_label	ui.py	/^def display_assistant_label() -> None:$/;"	f	typeref:typename:None
+display_closed_by_user	ui.py	/^def display_closed_by_user() -> None:$/;"	f	typeref:typename:None
+display_error	ui.py	/^def display_error(text: str) -> None:$/;"	f	typeref:typename:None
+display_horizontal_rule	ui.py	/^def display_horizontal_rule(title: str = "", color: str = Colors.RESET) -> None:$/;"	f	typeref:typename:None
+display_interrupted	ui.py	/^def display_interrupted() -> None:$/;"	f	typeref:typename:None
+display_params_table	ui.py	/^def display_params_table(params: Dict[str, Any]) -> None:$/;"	f	typeref:typename:None
+display_results	tools/search.py	/^def display_results(results: list[dict], query: str) -> None:$/;"	f	typeref:typename:None
+display_skipped	ui.py	/^def display_skipped() -> None:$/;"	f	typeref:typename:None
+display_startup_banner	ui.py	/^def display_startup_banner(context_limit: int) -> None:$/;"	f	typeref:typename:None
+display_stats	ui.py	/^def display_stats($/;"	f	typeref:typename:None
+display_status	ui.py	/^def display_status(text: str) -> None:$/;"	f	typeref:typename:None
+display_thinking_separator	ui.py	/^def display_thinking_separator() -> None:$/;"	f	typeref:typename:None
+display_tool_call	ui.py	/^def display_tool_call($/;"	f	typeref:typename:None
+display_warning	ui.py	/^def display_warning(text: str) -> None:$/;"	f	typeref:typename:None
+error	core/__init__.py	/^    error: Optional[str] = None$/;"	v	class:ToolResult	typeref:typename:Optional[str]
+execute	core/__init__.py	/^    def execute($/;"	m	class:ToolExecutorProtocol	typeref:typename:ToolResult
+execute	tools/registry.py	/^def execute($/;"	f	typeref:typename:ToolResult
+execute_bash	tools/bash_tool.py	/^def execute_bash(command: str, timeout: int = 60) -> ToolResult:$/;"	f	typeref:typename:ToolResult
+execute_lft	tools/lft_tool.py	/^def execute_lft($/;"	f	typeref:typename:ToolResult
+exists	tools/registry.py	/^    def exists(cls, name: str) -> bool:$/;"	m	class:ToolRegistry	typeref:typename:bool
+exit_code	core/__init__.py	/^    exit_code: int = 0$/;"	v	class:ToolResult	typeref:typename:int
+filter_warnings	tools/web_tool.py	/^        def filter_warnings(text: str) -> str:$/;"	f	function:crawl_web	typeref:typename:str	file:
+finish_reason	core/__init__.py	/^    finish_reason: str = "stop"$/;"	v	class:LLMResponse	typeref:typename:str
+format_line	tools/lft.py	/^def format_line(line_num: int, content: str, marker: str = " ") -> str:$/;"	f	typeref:typename:str
+format_line_with_whitespace	tools/lft.py	/^def format_line_with_whitespace(line_num: int, content: str, marker: str = " ") -> tuple:$/;"	f	typeref:typename:tuple
+format_lines	tools/lft.py	/^def format_lines(lines: List[str], start: int = 1, marker: str = " ") -> str:$/;"	f	typeref:typename:str
+format_lines_with_whitespace	tools/lft.py	/^def format_lines_with_whitespace(lines: List[str], start: int = 1, marker: str = " ") -> tuple:$/;"	f	typeref:typename:tuple
+frequency_penalty	settings.json	/^    "frequency_penalty": 0.0,$/;"	n
+from_dict	agents/config.py	/^    def from_dict(cls, name: str, data: Dict[str, Any]) -> "AgentConfig":$/;"	m	class:AgentConfig	typeref:typename:"AgentConfig"
+generate_chunks	llm/client.py	/^            def generate_chunks() -> StreamGenerator:$/;"	f	member:LLMClient.call	typeref:typename:StreamGenerator	file:
+get	settings.py	/^def get(key: str, default: Any = None) -> Any:$/;"	f	typeref:typename:Any
+get	tools/registry.py	/^    def get(cls, name: str) -> Optional[Dict[str, Any]]:$/;"	m	class:ToolRegistry	typeref:typename:Optional[Dict[str,Any]]
+get_agent_config	agents/manager.py	/^    def get_agent_config(self, name: str) -> Optional[AgentConfig]:$/;"	m	class:AgentManager	typeref:typename:Optional[AgentConfig]
+get_all	settings.py	/^def get_all() -> Dict[str, Any]:$/;"	f	typeref:typename:Dict[str,Any]
+get_context_limit	core/__init__.py	/^    def get_context_limit(self) -> int:$/;"	m	class:LLMClientProtocol	typeref:typename:int
+get_context_limit	llm/client.py	/^    def get_context_limit(self) -> int:$/;"	m	class:LLMClient	typeref:typename:int
+get_context_limit	llm/mock_client.py	/^    def get_context_limit(self) -> int:$/;"	m	class:MockLLMClient	typeref:typename:int
+get_context_summary	memory/project_state.py	/^    def get_context_summary(self) -> str:$/;"	m	class:ProjectState	typeref:typename:str
+get_params	settings.py	/^def get_params() -> Dict[str, Union[int, float]]:$/;"	f	typeref:typename:Dict[str,Union[int,float]]
+get_schemas	core/__init__.py	/^    def get_schemas(self) -> List[Dict[str, Any]]:$/;"	m	class:ToolExecutorProtocol	typeref:typename:List[Dict[str,Any]]
+get_schemas	tools/registry.py	/^    def get_schemas(cls) -> List[Dict[str, Any]]:$/;"	m	class:ToolRegistry	typeref:typename:List[Dict[str,Any]]
+get_schemas	tools/registry.py	/^def get_schemas() -> List[Dict[str, Any]]:$/;"	f	typeref:typename:List[Dict[str,Any]]
+get_token_count	core/__init__.py	/^    def get_token_count(self, messages: List[Message]) -> int:$/;"	m	class:LLMClientProtocol	typeref:typename:int
+get_token_count	llm/client.py	/^    def get_token_count(self, messages: List[Dict[str, Any]]) -> int:$/;"	m	class:LLMClient	typeref:typename:int
+get_token_count	llm/mock_client.py	/^    def get_token_count(self, messages: List[Dict[str, Any]]) -> int:$/;"	m	class:MockLLMClient	typeref:typename:int
+get_token_estimate	memory/chat_history.py	/^    def get_token_estimate(self) -> int:$/;"	m	class:ChatHistory	typeref:typename:int
+is_binary	tools/lft.py	/^def is_binary(path: Path) -> bool:$/;"	f	typeref:typename:bool
+list_agents	agents/manager.py	/^    def list_agents(self) -> List[str]:$/;"	m	class:AgentManager	typeref:typename:List[str]
+list_all	tools/registry.py	/^    def list_all(cls) -> Dict[str, str]:$/;"	m	class:ToolRegistry	typeref:typename:Dict[str,str]
+list_tools	core/__init__.py	/^    def list_tools(self) -> Dict[str, str]:$/;"	m	class:ToolExecutorProtocol	typeref:typename:Dict[str,str]
+list_tools	tools/registry.py	/^def list_tools() -> Dict[str, str]:$/;"	f	typeref:typename:Dict[str,str]
+load	memory/chat_history.py	/^    def load(self) -> List[Message]:$/;"	m	class:ChatHistory	typeref:typename:List[Message]
+load	memory/project_state.py	/^    def load(self) -> bool:$/;"	m	class:ProjectState	typeref:typename:bool
+load_agent_configs	agents/config.py	/^def load_agent_configs(config_path: str = "agents.yaml") -> Dict[str, AgentConfig]:$/;"	f	typeref:typename:Dict[str,AgentConfig]
+load_system_prompt	main.py	/^def load_system_prompt(prompt_path: Optional[str] = None) -> tuple[str, Optional[str]]:$/;"	f	typeref:typename:tuple[str,Optional[str]]
+main	main.py	/^def main() -> None:$/;"	f	typeref:typename:None
+main	tests/test_imports.py	/^def main():$/;"	f
+main	tools/lft.py	/^def main() -> int:$/;"	f	typeref:typename:int
+main	tools/search.py	/^def main():$/;"	f
+max_agent_iterations	settings.json	/^    "max_agent_iterations": 100,$/;"	n
+max_file_size	settings.json	/^    "max_file_size": 10485760.0,$/;"	n
+max_iterations	agents/config.py	/^    max_iterations: int = 10$/;"	v	class:AgentConfig	typeref:typename:int
+min_p	settings.json	/^    "min_p": 0.05,$/;"	n
+model_name	settings.json	/^    "model_name": "model.gguf",$/;"	s
+output_error	tools/lft.py	/^def output_error(error: LFTError) -> None:$/;"	f	typeref:typename:None
+output_success	tools/lft.py	/^def output_success(**kwargs) -> None:$/;"	f	typeref:typename:None
+parse_multiedit	tools/lft.py	/^def parse_multiedit(content: str) -> List[Tuple[str, str]]:$/;"	f	typeref:typename:List[Tuple[str,str]]
+parse_tool_arguments	tools/registry.py	/^def parse_tool_arguments(arguments_json: str) -> Dict[str, Any]:$/;"	f	typeref:typename:Dict[str,Any]
+path_completer	main.py	/^def path_completer(text: str, state: int) -> Optional[str]:$/;"	f	typeref:typename:Optional[str]
+presence_penalty	settings.json	/^    "presence_penalty": 0.0,$/;"	n
+prompt_tokens	core/__init__.py	/^    prompt_tokens: int = 0$/;"	v	class:LLMResponse	typeref:typename:int
+prompt_tool_confirmation	ui.py	/^def prompt_tool_confirmation(cmd: str) -> str:$/;"	f	typeref:typename:str
+read_file	tools/lft.py	/^def read_file(path: Path) -> Tuple[str, str]:$/;"	f	typeref:typename:Tuple[str,str]
+read_files_for_context	main.py	/^def read_files_for_context(filepaths: List[str]) -> tuple[str, List[str]]:$/;"	f	typeref:typename:tuple[str,List[str]]
+read_stdin	tools/lft.py	/^def read_stdin() -> str:$/;"	f	typeref:typename:str
+readline	main.py	/^    readline = None$/;"	v
+reasoning	core/__init__.py	/^    reasoning: str = ""$/;"	v	class:LLMResponse	typeref:typename:str
+register	tools/registry.py	/^    def register($/;"	m	class:ToolRegistry	typeref:typename:None
+register_tool	tools/registry.py	/^def register_tool($/;"	f	typeref:typename:None
+repeat_penalty	settings.json	/^    "repeat_penalty": 1.1,$/;"	n
+reset	settings.py	/^def reset() -> None:$/;"	f	typeref:typename:None
+run_chat	main.py	/^def run_chat($/;"	f	typeref:typename:None
+save	memory/chat_history.py	/^    def save($/;"	m	class:ChatHistory	typeref:typename:bool
+save	memory/project_state.py	/^    def save(self) -> bool:$/;"	m	class:ProjectState	typeref:typename:bool
+search_internet	tools/search.py	/^def search_internet(query: str, num_results: int = 10) -> list[dict]:$/;"	f	typeref:typename:list[dict]
+search_internet	tools/web_tool.py	/^def search_internet(query: str, num_results: int = 10, timeout: int = 30) -> ToolResult:$/;"	f	typeref:typename:ToolResult
+server_url	settings.json	/^    "server_url": "http:\/\/localhost:8080",$/;"	s
+set_goal	memory/project_state.py	/^    def set_goal(self, goal: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+set_llm_client	agents/manager.py	/^    def set_llm_client(self, client: LLMClientProtocol) -> None:$/;"	m	class:AgentManager	typeref:typename:None
+set_name	memory/project_state.py	/^    def set_name(self, name: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+set_status	memory/project_state.py	/^    def set_status(self, status: str) -> None:$/;"	m	class:ProjectState	typeref:typename:None
+show_help_menu	ui.py	/^def show_help_menu() -> None:$/;"	f	typeref:typename:None
+stream_chunk	ui.py	/^def stream_chunk($/;"	f	typeref:typename:None
+stream_timeout	settings.json	/^    "stream_timeout": 120.0$/;"	n
+system_prompt	agents/config.py	/^    system_prompt: str = ""$/;"	v	class:AgentConfig	typeref:typename:str
+system_prompt_path	settings.json	/^    "system_prompt_path": "prompts\/system_prompt.md",$/;"	s
+temperature	agents/config.py	/^    temperature: Optional[float] = None$/;"	v	class:AgentConfig	typeref:typename:Optional[float]
+temperature	settings.json	/^    "temperature": 0.6,$/;"	n
+test_agents_imports	tests/test_imports.py	/^def test_agents_imports():$/;"	f
+test_core_imports	tests/test_imports.py	/^def test_core_imports():$/;"	f
+test_llm_imports	tests/test_imports.py	/^def test_llm_imports():$/;"	f
+test_memory_imports	tests/test_imports.py	/^def test_memory_imports():$/;"	f
+test_mock_llm	tests/test_imports.py	/^def test_mock_llm():$/;"	f
+test_settings	tests/test_imports.py	/^def test_settings():$/;"	f
+test_tool_execution	tests/test_imports.py	/^def test_tool_execution():$/;"	f
+test_tools_imports	tests/test_imports.py	/^def test_tools_imports():$/;"	f
+test_ui	tests/test_imports.py	/^def test_ui():$/;"	f
+think_mode	agents/config.py	/^    think_mode: bool = True$/;"	v	class:AgentConfig	typeref:typename:bool
+tokens_per_second	core/__init__.py	/^    tokens_per_second: float = 0.0$/;"	v	class:LLMResponse	typeref:typename:float
+tool_calls	core/__init__.py	/^    tool_calls: List[ToolCall] = None$/;"	v	class:LLMResponse	typeref:typename:List[ToolCall]
+tool_exists	tools/registry.py	/^def tool_exists(name: str) -> bool:$/;"	f	typeref:typename:bool
+tools	agents/config.py	/^    tools: List[str] = field(default_factory=list)$/;"	v	class:AgentConfig	typeref:typename:List[str]
+top_k	settings.json	/^    "top_k": 20,$/;"	n
+top_p	settings.json	/^    "top_p": 0.95,$/;"	n
+update	settings.py	/^def update(key: str, value: str) -> Tuple[bool, str]:$/;"	f	typeref:typename:Tuple[bool,str]
+verify_content	tools/lft.py	/^def verify_content(path: Path, expected: str, encoding: str) -> None:$/;"	f	typeref:typename:None
+visualize_whitespace	tools/lft.py	/^def visualize_whitespace(line: str) -> str:$/;"	f	typeref:typename:str
+write_file	tools/lft.py	/^def write_file(path: Path, content: str, encoding: str = "utf-8") -> None:$/;"	f	typeref:typename:None

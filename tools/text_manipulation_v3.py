@@ -1,0 +1,677 @@
+test replacement
+"""
+Git-Safe Text Manipulation Tool v3 (Improved)
+
+A robust, battle-tested tool for searching and replacing text in files.
+Designed for LLM-assisted workflows with git-based safety nets.
+
+Core Principles:
+- **Search**: Uses `rg` (ripgrep) for fast pattern matching + `batcat` for whitespace visualization.
+- **Replace**: Uses "Split-and-Glue" algorithm with atomic writes to prevent corruption.
+- **Safety**: All modifications are tracked by git; use `git restore` to rollback instantly.
+
+Output Format:
+- Matches output follows `rg` style (LLM-friendly): `file.py:line:content`
+- Visualization uses `batcat -A`: Shows spaces as `·`, tabs as `→`, newlines as `␊`.
+- Errors follow `git` style: `fatal: <message>` to stderr.
+
+Developer: Systematic Thinker (v3)
+Version: 3.0.0
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from typing import List, Optional, Tuple
+
+
+# =============================================================================
+# CONFIGURATION - External tool commands and settings
+# =============================================================================
+
+# batcat/bat detection with fallback
+CMD_BAT = "batcat" if shutil.which("batcat") else "bat"
+
+# Search tools in priority order
+CMD_RG = "rg"
+CMD_GIT_GREP = "git grep"
+
+# batcat flags for whitespace visualization (always-on, no option to disable)
+BAT_FLAGS_VISUALIZE: List[str] = [
+    "-A",                      # Show all non-printable characters (spaces, tabs, newlines)
+    "--style=numbers",         # Display line numbers
+    "--color=never",           # Disable ANSI colors (LLMs can't see them)
+    "--decorations=always",    # Force line number display in terminal
+    "--paging=never",          # Disable interactive pager for script safety
+]
+
+# ripgrep flags for pattern search
+RG_FLAGS_SEARCH: List[str] = [
+    "-n",                      # Include line numbers in output (git grep style)
+    "--color=never",           # Disable ANSI colors
+]
+
+# File encoding configuration (handles legacy files safely without data loss)
+ENCODING: str = "utf-8"
+ENCODING_ERRORS: str = "surrogateescape"
+
+
+# =============================================================================
+# UTILITY FUNCTIONS
+# =============================================================================
+
+
+def fatal(message: str) -> None:
+    """
+    Print a critical error message to stderr and exit with code 1.
+    
+    This follows git-style error reporting for consistency with developer workflows.
+    All errors should use this function to ensure proper exit codes and formatting.
+    
+    Args:
+        message: The error description to display. Should be concise and actionable.
+    """
+    print(f"fatal: {message}", file=sys.stderr)
+    sys.exit(1)
+
+
+def find_search_tool() -> str:
+    """
+    Detect the best available search tool in priority order.
+    
+    Priority: ripgrep > git grep > Python fallback
+    
+    Returns:
+        The command name of the first available tool.
+        
+    Raises:
+        None. If no tools are found, falls back to 'python'.
+    """
+    if shutil.which(CMD_RG):
+        return "rg"
+    if shutil.which("git"):
+        return "git_grep"
+    return "python"
+
+
+def read_file_lines(filepath: Path) -> List[str]:
+    """
+    Read a file and return its lines as a list, preserving line endings.
+    
+    Uses surrogateescape error handling to safely process files with mixed encodings.
+    This ensures that binary data or invalid UTF-8 bytes are preserved rather than corrupted.
+    
+    Args:
+        filepath: Path to the file to read.
+        
+    Returns:
+        List of strings, where each string is a line from the file (including newline characters).
+        
+    Raises:
+        fatal: If file doesn't exist, permission denied, or other I/O error occurs.
+    """
+    if not filepath.exists():
+        fatal(f"file '{filepath}' not found")
+    
+    try:
+        with open(filepath, "r", encoding=ENCODING, errors=ENCODING_ERRORS) as f:
+            return f.readlines()
+    except PermissionError:
+        fatal(f"permission denied: cannot read '{filepath}'")
+    except UnicodeDecodeError as e:
+        # Attempt recovery for files with non-UTF8 content
+        try:
+            with open(filepath, "r", encoding="latin-1") as f:
+                return f.readlines()
+        except Exception:
+            fatal(f"cannot decode file '{filepath}': unsupported encoding (tried utf-8 and latin-1)")
+    except OSError as e:
+        fatal(f"I/O error reading '{filepath}': {e}")
+
+
+def write_file_atomic(filepath: Path, lines: List[str]) -> None:
+    """
+    Write lines to a file atomically using a temporary file and rename.
+    
+    This prevents partial writes if the process crashes mid-operation (power failure, OOM kill, etc.).
+    The temp file is created in the same directory as the target to ensure the atomic rename
+    stays on the same filesystem (POSIX requirement).
+    
+    Args:
+        filepath: Path to the target file.
+        lines: List of strings to write (each string should include its newline character).
+        
+    Raises:
+        fatal: If directory doesn't exist, permission denied, or disk full error occurs.
+    """
+    parent_dir = filepath.parent
+    if not parent_dir.exists():
+        fatal(f"directory '{parent_dir}' does not exist")
+
+    temp_fd: Optional[int] = None
+    temp_path: Optional[Path] = None
+
+    try:
+        # Create temp file in same directory (same filesystem = atomic rename)
+        # Using mkstemp with explicit fd creation for better control
+        temp_fd, temp_path_str = tempfile.mkstemp(
+            dir=str(parent_dir),
+            prefix=".tmp_swap_",
+            suffix=".txt",
+        )
+        temp_path = Path(temp_path_str)
+
+        # Write content to temp file
+        with os.fdopen(temp_fd, "w", encoding=ENCODING, errors=ENCODING_ERRORS) as f:
+            temp_fd = None  # Transfer ownership of fd to context manager
+            f.writelines(lines)
+            f.flush()
+            os.fsync(f.fileno())  # Ensure data is physically on disk before rename
+
+        # Atomic replace (POSIX-safe via os.replace which is atomic on same filesystem)
+        os.replace(temp_path, filepath)
+        temp_path = None  # Success, no cleanup needed
+
+    except PermissionError:
+        fatal(f"permission denied: cannot write to '{filepath}'")
+    except OSError as e:
+        fatal(f"disk error while writing '{filepath}': {e}")
+    finally:
+        # Cleanup temp file if something went wrong (crash, exception)
+        if temp_fd is not None:
+            try:
+                os.close(temp_fd)
+            except OSError:
+                pass  # Already closed by context manager or failed
+        if temp_path is not None and temp_path.exists():
+            try:
+                temp_path.unlink()
+            except OSError:
+                pass  # File already removed (e.g., by os.replace on success)
+
+
+def parse_line_range(range_str: str) -> Tuple[int, int]:
+    """
+    Parse a line range string into start and end integers.
+    
+    Expected format: "START-END" (e.g., "45-52")
+    Whitespace is stripped automatically to handle user input gracefully.
+    
+    Args:
+        range_str: The range string to parse.
+        
+    Returns:
+        Tuple of (start_line, end_line) as 1-indexed integers.
+        
+    Raises:
+        fatal: If format is invalid, numbers are non-integer, start > end, or negative.
+    """
+    parts = range_str.strip().split("-")
+    if len(parts) != 2:
+        fatal(f"invalid line range '{range_str}' (expected format: START-END, e.g., 45-52)")
+
+    try:
+        start = int(parts[0].strip())
+        end = int(parts[1].strip())
+    except ValueError as e:
+        fatal(f"invalid line range '{range_str}' (line numbers must be integers): {e}")
+
+    if start < 1:
+        fatal(f"line {start} is invalid (lines are 1-indexed, starting at 1)")
+    if start > end:
+        fatal(f"invalid range: start ({start}) > end ({end})")
+
+    return start, end
+
+
+# =============================================================================
+# SEARCH MODE
+# =============================================================================
+
+
+def search_with_rg(pattern: str, filepath: Path, context: int) -> List[str]:
+    """
+    Search a file using ripgrep with line numbers and context.
+    
+    Args:
+        pattern: The search pattern (supports regex).
+        filepath: Path to the file to search.
+        context: Number of lines of context before/after matches.
+        
+    Returns:
+        List of match lines (including context) as strings in rg output format.
+        
+    Raises:
+        fatal: If rg is not found or returns an unexpected error code.
+    """
+    cmd = [CMD_RG] + RG_FLAGS_SEARCH + [f"-C{context}", pattern, str(filepath)]
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            return result.stdout.splitlines()
+        elif result.returncode == 1:
+            # rg returns exit code 1 when no matches are found (not an error)
+            return []  
+        else:
+            fatal(f"rg error: {result.stderr.strip()}")
+            
+    except FileNotFoundError:
+        fatal(f"command not found: '{CMD_RG}'. Please install ripgrep.")
+    except subprocess.SubprocessError as e:
+        # Catch other potential subprocess issues (e.g., pipe errors)
+        fatal(f"subprocess error running rg: {e}")
+
+
+def search_with_git_grep(pattern: str, filepath: Path) -> List[str]:
+    """
+    Search a file using git grep (fallback when rg is not available).
+    
+    Args:
+        pattern: The search pattern.
+        filepath: Path to the file to search.
+        
+    Returns:
+        List of match lines as strings in "file:line:content" format.
+        
+    Raises:
+        fatal: If git is not found or returns an error.
+    """
+    cmd = ["git", "grep", "-n", pattern, str(filepath)]
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            return result.stdout.splitlines()
+        elif result.returncode == 1:
+            return []  # No matches found (git grep returns 1 for no results)
+        else:
+            fatal(f"git grep error: {result.stderr.strip()}")
+            
+    except FileNotFoundError:
+        fatal("git not found. Please install git.")
+    except subprocess.SubprocessError as e:
+        fatal(f"subprocess error running git grep: {e}")
+
+
+def search_with_python(pattern: str, filepath: Path, context: int) -> List[str]:
+    """
+    Fallback search using Python's built-in string matching.
+    
+    This is used only when neither rg nor git is available on the system.
+    It provides basic functionality but lacks the speed and formatting of dedicated tools.
+    
+    Args:
+        pattern: The search pattern (substring match).
+        filepath: Path to the file to search.
+        context: Number of lines of context around matches.
+        
+    Returns:
+        List of match lines (with context) as strings in format "line:content" or "line-content".
+    """
+    lines = read_file_lines(filepath)
+    matches: List[str] = []
+
+    for i, line in enumerate(lines):
+        if pattern in line:
+            start = max(0, i - context)
+            end = min(len(lines), i + context + 1)
+            
+            for j in range(start, end):
+                prefix = ":" if j == i else "-"
+                matches.append(f"{j + 1}{prefix}{lines[j].rstrip()}")
+
+    return matches
+
+
+def run_bat_visualize(filepath: Path, line_range: Optional[Tuple[int, int]] = None) -> List[str]:
+    """
+    Run batcat to visualize file content with whitespace markers.
+    
+    This shows hidden characters that often cause bugs:
+    - `·` represents space
+    - `→` represents tab (if present)
+    - `␊` represents newline
+    
+    Args:
+        filepath: Path to the file to visualize.
+        line_range: Optional (start, end) tuple to limit visualization range.
+        
+    Returns:
+        List of visualized lines as strings.
+        
+    Raises:
+        fatal: If batcat/bat is not found or returns an error.
+    """
+    cmd = [CMD_BAT] + BAT_FLAGS_VISUALIZE
+    
+    if line_range:
+        start, end = line_range
+        cmd.extend([f"--line-range={start}:{end}"])
+    
+    cmd.append(str(filepath))
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        
+        if result.returncode == 0:
+            return result.stdout.splitlines()
+        else:
+            fatal(f"bat error: {result.stderr.strip()}")
+            
+    except FileNotFoundError:
+        fatal(f"command not found: '{CMD_BAT}'. Please install bat or batcat.")
+    except subprocess.SubprocessError as e:
+        fatal(f"subprocess error running {CMD_BAT}: {e}")
+
+
+def calculate_context_range(
+    match_lines: List[str], 
+    total_lines: int, 
+    context: int
+) -> Tuple[int, int]:
+    """
+    Calculate the line range to visualize based on matches and desired context.
+    
+    This ensures we show enough surrounding lines to understand the context of each match.
+    
+    Args:
+        match_lines: List of search result lines (e.g., from rg output).
+        total_lines: Total number of lines in the file.
+        context: Number of lines before/after each match to include in visualization.
+        
+    Returns:
+        Tuple of (start_line, end_line) for visualization. If no matches, returns (1, 1).
+    """
+    min_line = float('inf')
+    max_line = 0
+
+    for line in match_lines:
+        # Parse line number from rg output format "45:content" or "45-content"
+        if ":" in line:
+            num_str = line.split(":")[0]
+        elif "-" in line and not " -" in line:  # Avoid matching context dashes incorrectly
+            parts = line.split("-")
+            num_str = parts[0]
+        else:
+            continue
+
+        try:
+            num = int(num_str)
+            min_line = min(min_line, num)
+            max_line = max(max_line, num)
+        except ValueError:
+            # Skip lines that can't be parsed as numbers (shouldn't happen with proper rg output)
+            continue
+
+    start = max(1, min_line - context) if min_line != float('inf') else 1
+    end = min(total_lines, max_line + context) if max_line > 0 else total_lines
+    
+    return int(start), int(end)
+
+
+def cmd_search(args: argparse.Namespace) -> None:
+    """
+    Execute the search subcommand.
+    
+    Searches for a pattern in a file and displays:
+    1. === MATCHES === section (rg/git grep style output with line numbers)
+    2. === VISUALIZATION === section (batcat -A output showing whitespace symbols)
+    
+    Args:
+        args: Parsed command-line arguments containing 'pattern', 'file', and 'context'.
+    """
+    filepath = Path(args.file)
+    
+    if not filepath.exists():
+        fatal(f"file '{filepath}' not found")
+
+    # Detect best search tool available on this system
+    search_tool = find_search_tool()
+
+    # Run search with appropriate function based on detected tool
+    if search_tool == "rg":
+        match_lines = search_with_rg(args.pattern, filepath, args.context)
+    elif search_tool == "git_grep":
+        match_lines = search_with_git_grep(args.pattern, filepath)
+    else:
+        # Fallback to Python (should rarely happen on modern systems)
+        match_lines = search_with_python(args.pattern, filepath, args.context)
+
+    # Handle case where no matches are found
+    if not match_lines:
+        print(f"No matches found for '{args.pattern}' in {filepath}")
+        return
+
+    # Read file to get total line count for visualization range calculation
+    all_lines = read_file_lines(filepath)
+    total_lines = len(all_lines)
+
+    # Print MATCHES section (git/rg-style output with explicit line numbers)
+    print("=== MATCHES ===")
+    
+    for line in match_lines:
+        # Add filename prefix if not already present (for consistency with git grep format)
+        # This makes it easy to identify which file the match is from
+        if not line.startswith(f"{filepath}:"):
+            print(f"{filepath}:{line}")
+        else:
+            print(line)
+    
+    print()  # Blank line separator before visualization
+
+    # Calculate range for visualization based on matches and context setting
+    vis_start, vis_end = calculate_context_range(match_lines, total_lines, args.context)
+
+    # Print VISUALIZATION section (batcat -A output with whitespace markers · → ␊)
+    print("=== VISUALIZATION ===")
+    vis_lines = run_bat_visualize(filepath, (vis_start, vis_end))
+    
+    for line in vis_lines:
+        print(line)
+
+
+# =============================================================================
+# REPLACE MODE
+# =============================================================================
+
+
+def cmd_replace(args: argparse.Namespace) -> None:
+    """
+    Execute the replace subcommand using the Split-and-Glue algorithm.
+    
+    This method safely replaces lines by:
+    1. Reading the original file into a list of lines (preserving exact content)
+    2. Keeping everything before the range (top)
+    3. Inserting the new snippet content (middle)
+    4. Keeping everything after the range (bottom)
+    5. Writing the result atomically via temp file + rename (prevents corruption on crash)
+    
+    Args:
+        args: Parsed command-line arguments containing 'lines', 'file', and 'snippet'.
+        
+    Raises:
+        fatal: If files don't exist, line range is invalid or out of bounds.
+    """
+    filepath = Path(args.file)
+    snippet_path = Path(args.snippet)
+
+    # Validate input files exist before attempting modification
+    if not filepath.exists():
+        fatal(f"file '{filepath}' not found")
+    if not snippet_path.exists():
+        fatal(f"snippet file '{snippet_path}' not found")
+
+    # Parse the line range (e.g., "45-52") into integers
+    start_line, end_line = parse_line_range(args.lines)
+
+    # Read original file lines
+    old_lines = read_file_lines(filepath)
+    total_old_lines = len(old_lines)
+
+    # Validate that the requested range is within bounds of the file
+    if end_line > total_old_lines:
+        fatal(f"line range {start_line}-{end_line} out of bounds (file has only {total_old_lines} lines)")
+
+    # Read snippet content (replacement lines) - preserves line endings from snippet file
+    new_content = read_file_lines(snippet_path)
+
+    # Split-and-Glue algorithm:
+    # top = all lines before the replacement range
+    # middle = new content to insert
+    # bottom = all lines after the replacement range
+    top = old_lines[: start_line - 1]      # Everything before (0-indexed: up to start-2)
+    middle = new_content                    # Replacement content  
+    bottom = old_lines[end_line:]           # Everything after (0-indexed: from end onwards)
+    
+    result = top + middle + bottom
+    
+    total_new_lines = len(result)
+
+    # Atomically write the modified file to disk
+    write_file_atomic(filepath, result)
+
+    # Print success message with actionable next steps for user verification
+    print(f"Replaced lines {start_line}-{end_line} in {filepath}")
+    print(f"(was {total_old_lines} lines, now {total_new_lines} lines)")
+    print("Run: git diff {filepath} to review changes")
+
+
+# =============================================================================
+# MAIN ENTRY POINT
+# =============================================================================
+
+
+def create_parser() -> argparse.ArgumentParser:
+    """
+    Create and configure the argument parser with subcommands.
+    
+    This function sets up a user-friendly interface that guides users through common tasks,
+    especially for those new to command-line tools or working with LLMs.
+    
+    Returns:
+        Configured ArgumentParser instance ready for CLI interaction.
+    """
+    parser = argparse.ArgumentParser(
+        prog="text_manipulation",
+        description="Git-safe text manipulation using Split-and-Glue method (v3). "
+                    "Searches with line numbers and whitespace visualization. Replaces safely with git rollback.",
+        epilog="""
+=== QUICK START GUIDE ===
+
+For beginners: If you need to replace the FIRST or LAST occurrence of a word, 
+you must first find its line number using 'rg' (ripgrep), then use those line numbers here.
+
+Example workflow for replacing "banana" on line 5:
+
+1. Find all occurrences with line numbers:
+   rg --line-number "banana" myfile.py
+   
+2. Create a replacement snippet:
+   echo "new_banana_code" > new_snippet.txt
+
+3. Replace the specific lines you found (manual selection):
+   text_manipulation replace --lines 5-5 myfile.py --snippet new_snippet.txt
+
+4. Review changes safely:
+   git diff myfile.py
+   
+5. Commit if good, or rollback if not:
+   git add myfile.py && git commit -m "fix"
+   # OR if wrong:
+   git restore myfile.py
+
+=== TOOL PRIORITIES ===
+
+- Search uses ripgrep (rg) for speed and accurate line numbers.
+- Visualization always shows whitespace (spaces=·, tabs=→, newlines=␊).
+- Errors follow git style: "fatal: <message>" to stderr.
+- All writes are atomic; partial files cannot corrupt your data.
+
+=== SAFETY REMINDERS ===
+
+- Always run 'git add' and 'git commit' before replacing important code.
+- Use 'git restore' immediately if the replacement is wrong.
+- This tool does NOT implement --dry-run; use git diff to preview first.
+        """,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
+
+    # --- SEARCH SUBCOMMAND ---
+    search_parser = subparsers.add_parser(
+        "search",
+        help="Search for pattern with context and whitespace visualization",
+        description="Search a file for a pattern (supports regex) and show matches with surrounding context. "
+                    "Output includes line numbers and hidden character markers.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    
+    search_parser.add_argument("pattern", type=str, help="The search pattern (can be regular expression)")
+    search_parser.add_argument("file", type=str, help="File to search")
+    search_parser.add_argument(
+        "-c", "--context",
+        type=int,
+        default=2,
+        help="Lines of context before/after matches (default: 2). Set to 0 for line numbers only."
+    )
+
+    # --- REPLACE SUBCOMMAND ---
+    replace_parser = subparsers.add_parser(
+        "replace",
+        help="Replace specific line ranges with content from a snippet file",
+        description="Safely replace lines in a file using the Split-and-Glue algorithm. "
+                    "Requires exact line numbers (find them first with 'rg').",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    
+    replace_parser.add_argument(
+        "--lines", "-l",
+        type=str,
+        required=True,
+        help="Line range to replace (format: START-END, e.g., 45-52). "
+             "Lines are 1-indexed. Use 'rg --line-number' to find correct lines."
+    )
+    replace_parser.add_argument("file", type=str, help="File to modify")
+    replace_parser.add_argument(
+        "--snippet", "-n",
+        type=str,
+        required=True,
+        help="Path to file containing the replacement content. Each line in this file replaces one line in target."
+    )
+
+    return parser
+
+
+def main() -> None:
+    """Main entry point for the text manipulation tool."""
+    parser = create_parser()
+    
+    # Parse arguments (will exit with usage message if invalid)
+    args = parser.parse_args()
+
+    if args.command is None:
+        parser.print_help()
+        sys.exit(1)
+
+    # Dispatch to appropriate handler based on subcommand
+    if args.command == "search":
+        cmd_search(args)
+    elif args.command == "replace":
+        cmd_replace(args)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

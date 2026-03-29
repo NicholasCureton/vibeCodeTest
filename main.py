@@ -452,11 +452,11 @@ def run_chat(
                         ui.display_skipped()
                         skip_msg = build_tool_result_message(
                             tool_call_id=tool_call_id,
-                            result="Tool execution skipped by user."
+                            result="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED."
                         )
                         chat_history.save(
                             role="tool",
-                            content="Tool execution skipped by user.",
+                            content="Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED.",
                             tool_call_id=tool_call_id
                         )
                         history.append(skip_msg)

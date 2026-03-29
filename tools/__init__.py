@@ -21,7 +21,6 @@ USAGE:
 
 AVAILABLE TOOLS:
     - execute_bash: Run terminal commands
-    - lft: Powerful file operations (read/write/edit/find/info/multiedit)
     - search_internet: Web search via DuckDuckGo
     - crawl_web: Website crawling via Crawl4AI
 """
@@ -38,8 +37,9 @@ from tools.registry import (
 
 # Import tool implementations (they self-register)
 from tools import bash_tool
-from tools import lft_tool
 from tools import web_tool
+from tools import search_replace_self_register
+
 
 __all__ = [
     "register_tool",
