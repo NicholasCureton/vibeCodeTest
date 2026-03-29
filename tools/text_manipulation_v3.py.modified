@@ -448,6 +448,23 @@ def cmd_search(args: argparse.Namespace) -> None:
 
     # Handle case where no matches are found
     if not match_lines:
+        # Parse line number and content from rigpreg output format "2-content"
+        # Then reformat to git grep style "file.py:2:content"
+        if ":" in line:
+            parts = line.split(":",1)
+            line_num = parts[0]
+            content = parts[1] if len(parts) > 1 else ""
+            print(f"{filepath}:{line_num}:{content}")
+        elif "-" in line and not " -" in line:
+            # Handle context lines that might have dashes (e.g., "2-:content")
+            parts = line.split("-", 1)
+            line_num = parts[0]
+            content = parts[1] if len(parts) > 1 else ""
+            print(f"{filepath}:{line_num}:{content}")
+        else:
+            # Fallback: just print as-is
+            print(line)
+
         print(f"No matches found for '{args.pattern}' in {filepath}")
         return
 

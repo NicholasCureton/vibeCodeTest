@@ -38,7 +38,8 @@ from tools.registry import (
 # Import tool implementations (they self-register)
 from tools import bash_tool
 from tools import web_tool
-from tools import search_replace_self_register
+from tools.search_replace_self_register import _execute_search_replace_command as search_replace
+# Export the wrapper function for direct tool invocation
 
 
 __all__ = [
@@ -50,4 +51,5 @@ __all__ = [
     "build_tool_result_message",
     "build_assistant_tool_message",
     "ToolRegistry"
+    "search_replace"
 ]

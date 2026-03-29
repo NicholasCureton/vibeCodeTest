@@ -59,7 +59,7 @@ def _execute_search_replace_command(
     pattern: Optional[str] = None, 
     lines_range: Optional[str] = None, 
     snippet_path: Optional[str] = None, 
-    context: int = 2
+    context_lines: int = 2
 ) -> Dict[str, Any]:
     """
     Execute the text_manipulation_v3 CLI via subprocess.
@@ -70,7 +70,7 @@ def _execute_search_replace_command(
         pattern: Regex pattern for search (required if command is 'search').
         lines_range: Line range "START-END" for replace (required if command is 'replace').
         snippet_path: Path to snippet file for replace (required if command is 'replace').
-        context: Number of context lines for search.
+        context_lines: Number of context lines for search.
 
     Returns:
         A dictionary compatible with ToolResult containing success status, output, and error messages.
@@ -126,8 +126,8 @@ def _execute_search_replace_command(
     
     if command == "search":
         cmd_args.extend(["search", pattern, file_path])
-        if context != 2:
-            cmd_args.extend(["--context", str(context)])
+        if context_lines != 2:
+            cmd_args.extend(["--context", str(context_lines)])
             
     elif command == "replace":
         cmd_args.extend(["replace", "--lines", lines_range, file_path, "--snippet", snippet_path])
