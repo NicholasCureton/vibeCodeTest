@@ -478,7 +478,13 @@ def run_chat(
                     # Confirmation (if not in agent mode)
                     if agent_mode == AgentMode.OFF:
                         cmd = args.get("command", str(args)) if tool_name == "execute_bash" else str(args)
-                        confirm = ui.prompt_tool_confirmation(cmd)
+                        try:
+                            confirm = ui.prompt_tool_confirmation(cmd)
+                        except EOFError:
+                            # User sent EOF during confirmation
+                            ui.display_interrupted()
+                            ui.reset_markdown_parser()
+                            return
                         if confirm != "Y":
                             ui.display_skipped()
                             skip_msg = build_tool_result_message(
@@ -536,6 +542,20 @@ def run_chat(
                     if full_content.strip() or (save_thinking and full_reasoning.strip()):
                         chat_history.save("assistant", full_content, full_reasoning if save_thinking else None)
                     return
+                except Exception as e:
+                    # Tool execution failed with unexpected error
+                    ui.display_error(f"Tool '{tool_name}' failed: {e}")
+                    # Save error to history and continue with next tool
+                    error_msg = build_tool_result_message(
+                        tool_call_id=tool_call.get("id", ""),
+                        result=f"Tool execution error: {e}"
+                    )
+                    chat_history.save(
+                        role="tool",
+                        content=f"Tool execution error: {e}",
+                        tool_call_id=tool_call.get("id", "")
+                    )
+                    history.append(error_msg)
 
             continue
 

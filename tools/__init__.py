@@ -50,6 +50,6 @@ __all__ = [
     "tool_exists",
     "build_tool_result_message",
     "build_assistant_tool_message",
-    "ToolRegistry"
+    "ToolRegistry",
     "search_replace"
 ]

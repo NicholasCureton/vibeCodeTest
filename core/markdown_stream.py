@@ -360,7 +360,7 @@ class MarkdownStreamParser:
             for row in rows:
                 if i < len(row):
                     max_w = max(max_w, len(row[i]))
-            col_widths.append(max_w + self.config.table_pad + self.config.table_pad)
+            col_widths.append(max_w + 2 * self.config.table_pad)
 
         # Build table
         result = []
