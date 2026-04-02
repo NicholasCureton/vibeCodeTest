@@ -1,2 +1,20 @@
 {"role": "user", "timestamp": "2026-04-01T20:30:27.474240", "content": "yo bro"}
 {"role": "assistant", "timestamp": "2026-04-01T20:30:32.931272", "content": "Yo! What\u2019s up? Need help with something or just sayin\u2019 hi?"}
+{"role": "user", "timestamp": "2026-04-02T10:26:16.297391", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T10:26:16.301494", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T10:31:52.347776", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T10:31:52.350241", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:29:21.805819", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:29:21.808158", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:29:45.454618", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:29:45.457448", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:30:03.085786", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:30:03.088701", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:30:34.493860", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:30:34.498388", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:31:08.878470", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:31:08.881749", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:46:53.172167", "content": "Hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:46:53.174881", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}
+{"role": "user", "timestamp": "2026-04-02T11:49:08.570008", "content": "hi"}
+{"role": "assistant", "timestamp": "2026-04-02T11:49:08.573946", "content": "I'm a mock client running in test mode. Your message was received. This simulated response helps you test the UI and tool calling without needing a real LLM server running.", "reasoning_content": "Let me think about this...\n"}

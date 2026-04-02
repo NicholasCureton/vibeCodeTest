@@ -61,12 +61,6 @@ def display_horizontal_rule(title: str = "", color: str = Colors.RESET) -> None:
         print(f"{color}{'=' * width}{Colors.RESET}")
 
 
-def display_assistant_label() -> None:
-    """Display assistant label for streaming."""
-    sys.stdout.write(f"{Colors.BOLD}Assistant:{Colors.RESET} ")
-    sys.stdout.flush()
-
-
 def display_thinking_separator() -> None:
     """Display thinking section separator."""
     sys.stdout.write(
@@ -98,7 +92,7 @@ def stream_chunk(
     """
     if has_switched:
         _stdout_buffer.write(
-            f"\n\n{Colors.CYAN}{'=' * 20} ANSWER {'=' * 20}{Colors.RESET}\n"
+            f"\n\n{Colors.CYAN}{'=' * 16} ASSISTANT ANSWER {'=' * 16}{Colors.RESET}\n"
         )
 
     color = Colors.GREY if is_reasoning else Colors.RESET
@@ -146,7 +140,7 @@ def stream_markdown_chunk(
     """
     if has_switched:
         _stdout_buffer.write(
-            f"\n\n{Colors.CYAN}{'=' * 20} ANSWER {'=' * 20}{Colors.RESET}\n"
+            f"\n\n{Colors.CYAN}{'=' * 16} ASSISTANT ANSWER {'=' * 16}{Colors.RESET}\n"
         )
 
     if is_reasoning:
@@ -192,12 +186,6 @@ def reset_markdown_parser() -> None:
     if _markdown_parser is not None:
         _markdown_parser.finalize()
         _markdown_parser = None
-
-
-def display_assistant_label() -> None:
-    """Display assistant label for streaming."""
-    sys.stdout.write(f"{Colors.BOLD}Assistant:{Colors.RESET} ")
-    sys.stdout.flush()
 
 
 def display_tool_call(
@@ -362,4 +350,4 @@ def display_closed_by_user() -> None:
 
 def display_skipped() -> None:
     """Display skipped message."""
-    print("Skipped.\n")
+    print("Tool execution skipped by user. STOP and Wait for instructions. DO NOT PROCEED.\n")

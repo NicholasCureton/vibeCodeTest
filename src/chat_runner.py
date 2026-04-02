@@ -96,7 +96,6 @@ def run_chat(
         completion_tokens = 0
         tokens_per_second = 0.0
 
-        ui.display_assistant_label()
 
         try:
             for chunk in chunks:

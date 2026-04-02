@@ -197,11 +197,10 @@ def run_interactive_mode(
     while True:
         t_stat = "ON" if server_think else "OFF"
         a_stat = f" [AGENT-{agent_mode.upper()}]" if agent_mode == AgentMode.ON else ""
-        
+      
         try:
-            user_input = input(
-                f"User [THINK-{t_stat}]{a_stat}: "
-            ).strip()
+            print(f"LLM [THINK-{t_stat}]{a_stat}")
+            user_input = input("User Message: ").strip()
         except EOFError:
             break
         
