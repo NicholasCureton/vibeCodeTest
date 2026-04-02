@@ -1,0 +1,159 @@
+{
+    "_comment": "Model configurations for popular open-weight models",
+    "_usage": "Copy the model_config section for your model into data/settings.json",
+
+    "qwen-3.5": {
+        "_name": "Qwen 3.5 (All sizes)",
+        "_description": "Supports thinking/reasoning mode via chat_template_kwargs",
+        "name": "qwen-3.5",
+        "has_thinking_mode": true,
+        "thinking_disable_payload": {
+            "stop": ["Thinking Process:", "ikka", "otta"],
+            "chat_template_kwargs": {"enable_thinking": false}
+        },
+        "extra_payload": {}
+    },
+
+    "qwen-3": {
+        "_name": "Qwen 3 (All sizes)",
+        "_description": "Uses stop tokens to disable thinking",
+        "name": "qwen-3",
+        "has_thinking_mode": true,
+        "thinking_disable_payload": {
+            "stop": ["Thinking Process:", "ikka", "otta"]
+        },
+        "extra_payload": {}
+    },
+
+    "qwen-2.5": {
+        "_name": "Qwen 2.5 (7B/14B/32B/72B)",
+        "_description": "No thinking mode, standard params",
+        "name": "qwen-2.5",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "llama-3": {
+        "_name": "Llama 3 / 3.1 / 3.2 (All sizes)",
+        "_description": "No thinking mode, standard stop tokens",
+        "name": "llama-3",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {
+            "stop": ["<|eot_id|>", "<|end_of_text|>"]
+        }
+    },
+
+    "llama-3.1-405b": {
+        "_name": "Llama 3.1 405B",
+        "_description": "Extended context window",
+        "name": "llama-3.1-405b",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {
+            "stop": ["<|eot_id|>", "<|end_of_text|>"],
+            "max_tokens": 32768
+        }
+    },
+
+    "mistral": {
+        "_name": "Mistral 7B / Mixtral 8x7B / Mistral Large",
+        "_description": "No thinking mode, no special params",
+        "name": "mistral",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "mistral-nemo": {
+        "_name": "Mistral NeMo 12B",
+        "_description": "Extended 128K context",
+        "name": "mistral-nemo",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {
+            "max_tokens": 128000
+        }
+    },
+
+    "gemma-2": {
+        "_name": "Gemma 2 (9B/27B)",
+        "_description": "Google's model, supports top_k",
+        "name": "gemma-2",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {
+            "stop": ["<eos>"]
+        }
+    },
+
+    "gemma-3": {
+        "_name": "Gemma 3",
+        "_description": "Latest Gemma model",
+        "name": "gemma-3",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {
+            "stop": ["<eos>"]
+        }
+    },
+
+    "deepseek-r1": {
+        "_name": "DeepSeek R1",
+        "_description": "Supports reasoning budget control",
+        "name": "deepseek-r1",
+        "has_thinking_mode": true,
+        "thinking_disable_payload": {
+            "reasoning_budget": 0
+        },
+        "extra_payload": {
+            "max_tokens": 64000
+        }
+    },
+
+    "deepseek-v3": {
+        "_name": "DeepSeek V3",
+        "_description": "No thinking mode",
+        "name": "deepseek-v3",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "yi": {
+        "_name": "01.AI Yi (6B/9B/34B)",
+        "_description": "No thinking mode",
+        "name": "yi",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "command-r": {
+        "_name": "Cohere Command R / R+",
+        "_description": "Optimized for RAG and tool use",
+        "name": "command-r",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "phi-3": {
+        "_name": "Microsoft Phi-3 (Mini/Small/Medium)",
+        "_description": "Compact models, no thinking mode",
+        "name": "phi-3",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    },
+
+    "custom": {
+        "_name": "Custom Model",
+        "_description": "Configure manually for any other model",
+        "name": "custom",
+        "has_thinking_mode": false,
+        "thinking_disable_payload": {},
+        "extra_payload": {}
+    }
+}

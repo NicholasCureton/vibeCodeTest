@@ -1,0 +1,63 @@
+{
+    "_comment": "Example settings for different model families. Copy relevant section to settings.json",
+
+    "qwen3.5": {
+        "_description": "Qwen3.5 thinking control via chat_template_kwargs",
+        "thinking_control": {
+            "enabled": true,
+            "disable_payload": {
+                "chat_template_kwargs": {"enable_thinking": false}
+            }
+        },
+        "extra_payload": {}
+    },
+
+    "qwen3": {
+        "_description": "Older Qwen3 models with stop tokens",
+        "thinking_control": {
+            "enabled": true,
+            "disable_payload": {
+                "stop": ["Thinking Process:", "ikka", "otta"]
+            }
+        },
+        "extra_payload": {}
+    },
+
+    "deepseek-r1": {
+        "_description": "DeepSeek R1 reasoning budget control",
+        "thinking_control": {
+            "enabled": true,
+            "disable_payload": {}
+        },
+        "extra_payload": {
+            "max_tokens": 32000
+        }
+    },
+
+    "llama3": {
+        "_description": "Llama 3 - no thinking control needed",
+        "thinking_control": {
+            "enabled": false,
+            "disable_payload": {}
+        },
+        "extra_payload": {}
+    },
+
+    "mistral": {
+        "_description": "Mistral - no thinking control needed",
+        "thinking_control": {
+            "enabled": false,
+            "disable_payload": {}
+        },
+        "extra_payload": {}
+    },
+
+    "gemma": {
+        "_description": "Gemma 2 - no thinking control needed",
+        "thinking_control": {
+            "enabled": false,
+            "disable_payload": {}
+        },
+        "extra_payload": {}
+    }
+}
